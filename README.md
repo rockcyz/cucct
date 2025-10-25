@@ -64,7 +64,7 @@ python cors_server.py
 
 ```
 cucct/
-├── index.html              # 首页（重定向到home.html）
+├── index.html              # 首页（与home.html相同）
 ├── home.html               # 主页面
 ├── course-introduction.html # 课程介绍页
 ├── e-courseware.html       # 电子课件页
