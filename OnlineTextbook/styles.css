@@ -1,0 +1,151 @@
+/* Custom styles for enhanced visual effects */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.prose {
+    color: #374151; /* gray-700 */
+    line-height: 1.75;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4 {
+    color: #111827; /* gray-900 */
+    font-weight: 700;
+    margin-top: 1.5em; /* Consistent with Tailwind prose */
+    margin-bottom: 0.8em; /* Consistent with Tailwind prose */
+}
+
+.prose p {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+}
+
+.prose blockquote {
+    border-left: 4px solid #3b82f6; /* blue-500 */
+    background-color: #eff6ff; /* blue-50 */
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0.5rem;
+    font-style: italic;
+    color: #1d4ed8; /* blue-700 */
+}
+.prose blockquote p {
+    margin: 0;
+}
+
+
+.prose ul, .prose ol {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+    padding-left: 1.625em; /* Consistent with Tailwind prose */
+}
+
+.prose li {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.prose strong {
+    color: #1f2937; /* gray-800 */
+    font-weight: 600;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* General interactive element enhancement */
+.hover-lift {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.hover-lift:hover {
+    transform: translateY(-3px);
+    /* box-shadow applied by Tailwind's hover:shadow-lg typically */
+}
+
+
+/* Animation for scroll-triggered elements */
+.opacity-0 { opacity: 0; } /* Utility for initial state */
+
+.fade-in-up {
+    animation: fadeInUp 0.7s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Custom scrollbar (optional, use with care for cross-browser consistency) */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9; /* slate-100 */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #94a3b8; /* slate-400 */
+    border-radius: 10px;
+    border: 2px solid #f1f5f9; /* Add border to match track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #64748b; /* slate-500 */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .prose {
+        font-size: 1rem; /* Tailwind's default text-base */
+    }
+    .prose h1 { font-size: 2.25rem; } /* Adjust heading sizes for mobile */
+    .prose h2 { font-size: 1.875rem; }
+    .prose h3 { font-size: 1.5rem; }
+
+    .computational-thinking-svg {
+        /* SVG will scale by default with max-w-full h-auto */
+        /* No specific rule needed here unless overriding something */
+    }
+}
+
+/* Specific styles for SVG elements if not handled by inline <style> or Tailwind */
+.svg-box {
+    /* Base styles are in SVG's <style> tag for better encapsulation */
+}
+.svg-box-highlight {
+    /* Styles for highlighted state are in SVG's <style> tag */
+}
+.svg-text {
+    /* Base styles are in SVG's <style> tag */
+}
+.svg-text-highlight {
+     /* Styles for highlighted state are in SVG's <style> tag */
+}
+
+/* Drag and drop quiz specific styles */
+#decomposition-source > div, #decomposition-target > div {
+    transition: opacity 0.2s ease;
+}
+#decomposition-target {
+    /* min-height is set via Tailwind */
+}
+.draggingPlaceholder {
+    height: 40px; /* match item height */
+    background-color: #f0f9ff; /* light blue */
+    border: 2px dashed #93c5fd; /* blue-300 */
+    border-radius: 0.375rem; /* rounded-md */
+    margin-bottom: 0.5rem; /* space-y-2 */
+}

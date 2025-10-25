@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算思维概论课程网站 | CUC</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .hero-section {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            margin-bottom: 60px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            opacity: 0.95;
+            margin-bottom: 40px;
+        }
+        .course-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .course-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        .course-info p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .tool-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+        .tool-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        .tool-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        .tool-title-en {
+            font-size: 1rem;
+            color: #718096;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+        .tool-description {
+            color: #4a5568;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        .tool-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 25px;
+        }
+        .tool-features li {
+            padding: 8px 0;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+        }
+        .tool-features li::before {
+            content: '✓';
+            color: #48bb78;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        .tool-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .tool-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        .footer-info {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .footer-info h3 {
+            font-size: 1.5rem;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+        .footer-info p {
+            color: #4a5568;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            .tool-card {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <i class="fas fa-brain"></i>
+                    计算思维概论课程网站
+                </h1>
+                <p class="hero-subtitle">
+                    Introduction to Computational Thinking
+                </p>
+                <div class="course-info">
+                    <h2>关于课程</h2>
+                    <p>
+                        计算思维概论是中国传媒大学计算机与网络空间安全学院的基础课程，
+                        旨在培养学生的计算思维能力，理解计算机科学的基本原理和应用。
+                    </p>
+                    <p>
+                        本网站提供课程介绍、在线教材、电子课件和实验工具等全方位教学资源，
+                        帮助学生更好地理解和掌握计算思维的核心概念。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Navigation Grid -->
+        <div class="tools-grid">
+            <!-- 课程介绍 -->
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-book-open"></i></div>
+                <h3 class="tool-title">课程介绍</h3>
+                <p class="tool-title-en">Course Introduction</p>
+                <p class="tool-description">
+                    了解计算思维概论课程的教学目标、教学内容、考核方式等详细信息。
+                    掌握课程的学习方法和重点难点。
+                </p>
+                <ul class="tool-features">
+                    <li>课程教学目标</li>
+                    <li>教学内容大纲</li>
+                    <li>考核方式说明</li>
+                    <li>学习建议指导</li>
+                </ul>
+                <a href="#" class="tool-button" onclick="alert('功能开发中...'); return false;">
+                    <i class="fas fa-arrow-right"></i> 查看详情
+                </a>
+            </div>
+
+            <!-- 在线教材 -->
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-book"></i></div>
+                <h3 class="tool-title">在线教材</h3>
+                <p class="tool-title-en">Online Textbook</p>
+                <p class="tool-description">
+                    提供完整的在线教材内容，包括理论讲解、案例分析、习题练习等。
+                    支持在线阅读和下载功能。
+                </p>
+                <ul class="tool-features">
+                    <li>章节内容浏览</li>
+                    <li>理论要点解析</li>
+                    <li>案例分析讲解</li>
+                    <li>习题在线练习</li>
+                </ul>
+                <a href="#" class="tool-button" onclick="alert('功能开发中...'); return false;">
+                    <i class="fas fa-arrow-right"></i> 进入教材
+                </a>
+            </div>
+
+            <!-- 电子课件 -->
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-presentation"></i></div>
+                <h3 class="tool-title">电子课件</h3>
+                <p class="tool-title-en">Electronic Courseware</p>
+                <p class="tool-description">
+                    提供课程所有章节的电子课件下载，便于课堂学习和课后复习。
+                    支持PDF、PPT等多种格式。
+                </p>
+                <ul class="tool-features">
+                    <li>章节课件下载</li>
+                    <li>多种格式支持</li>
+                    <li>高清课件质量</li>
+                    <li>定期更新维护</li>
+                </ul>
+                <a href="#" class="tool-button" onclick="alert('功能开发中...'); return false;">
+                    <i class="fas fa-arrow-right"></i> 下载课件
+                </a>
+            </div>
+
+            <!-- 实验工具 -->
+            <div class="tool-card" style="border: 3px solid #667eea;">
+                <div class="tool-icon"><i class="fas fa-flask"></i></div>
+                <h3 class="tool-title">实验工具</h3>
+                <p class="tool-title-en">Lab Tools</p>
+                <p class="tool-description">
+                    提供一系列在线实验辅助工具，帮助学生更好地理解和掌握计算思维的核心概念。
+                    支持图像编码、字符编码、数值转换等多种实验工具。
+                </p>
+                <ul class="tool-features">
+                    <li>图像编码工具</li>
+                    <li>字符编码工具</li>
+                    <li>数值转换工具</li>
+                    <li>更多工具开发中</li>
+                </ul>
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+                    <a href="image_encoding.html" class="tool-button" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <i class="fas fa-image"></i> 图像编码
+                    </a>
+                    <a href="character_encoding.html" class="tool-button" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <i class="fas fa-keyboard"></i> 字符编码
+                    </a>
+                    <a href="number_converter.html" class="tool-button" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <i class="fas fa-calculator"></i> 数值转换
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-info">
+            <h3><i class="fas fa-graduation-cap"></i> 关于本网站</h3>
+            <p>
+                本网站为计算思维概论课程的综合性教学平台，提供课程介绍、在线教材、电子课件和实验工具等全方位教学资源。
+            </p>
+            <p>
+                网站采用现代化Web技术开发，支持多种浏览器访问，无需安装任何插件，便捷高效。
+            </p>
+            <p>
+                欢迎各位同学积极使用本网站的学习资源，如有问题或建议，请及时反馈。
+            </p>
+            <p style="margin-top: 30px; color: #667eea; font-weight: 600;">
+                <i class="fas fa-university"></i> 中国传媒大学 | 计算机与网络空间安全学院
+            </p>
+            <p style="color: #718096; font-size: 0.9rem;">
+                © 2025 CUC Introduction to Computational Thinking Course Website
+            </p>
+        </div>
+    </div>
+    <footer class="footer">
+        <p><i class="fas fa-code"></i> Built with passion for Computational Thinking Education | 用心打造计算思维教育平台</p>
+    </footer>
+</body>
+</html>

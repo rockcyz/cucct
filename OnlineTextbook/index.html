@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算思维 - 像计算机科学家一样思考</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.7/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-white to-purple-50 min-h-screen text-gray-700">
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <nav class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">💡</span>
+                    </div>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        计算思维
+                    </h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="../home.html" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center">
+                        <i class="fas fa-home mr-2"></i><span class="hidden sm:inline">返回首页</span>
+                    </a>
+                    <div class="hidden md:flex space-x-6">
+                        <a href="#introduction" class="text-gray-600 hover:text-blue-600 transition-colors">什么是计算思维</a>
+                        <a href="#core-elements" class="text-gray-600 hover:text-blue-600 transition-colors">四大核心要素</a>
+                        <a href="#applications" class="text-gray-600 hover:text-blue-600 transition-colors">技术应用</a>
+                        <a href="#further-learning" class="text-gray-600 hover:text-blue-600 transition-colors">拓展学习</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-20 px-6">
+        <div class="container mx-auto text-center">
+            <div class="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                🚀 探索计算机科学的思维方式
+            </div>
+            <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                像计算机科学家一样
+                <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">思考问题</span>
+            </h2>
+            <p class="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+                计算思维是运用计算机科学的基础概念去求解问题、设计系统和理解人类行为的方法。
+                掌握它，你将拥有解决复杂问题的"超能力"！
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="scrollToSection('introduction')" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105">
+                    开始探索
+                </button>
+                <button onclick="scrollToSection('core-elements')" class="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transition-all">
+                    核心要素
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <!-- Introduction Section -->
+        <section id="introduction" class="mb-20">
+            <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+                <div class="flex items-center mb-8">
+                    <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-blue-500 rounded-lg flex items-center justify-center mr-4">
+                        <span class="text-white text-xl">🤔</span>
+                    </div>
+                    <h3 class="text-3xl font-bold text-gray-900">什么是计算思维？</h3>
+                </div>
+                <div id="content-container" class="prose prose-lg max-w-none">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Elements Section -->
+        <section id="core-elements" class="mb-20">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-bold text-gray-900 mb-4">计算思维的四大核心要素</h3>
+                <p class="text-xl text-gray-600">让我们通过生动的例子和互动练习来理解这些核心概念</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Problem Decomposition -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all flex flex-col">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-red-400 to-pink-500 rounded-lg flex items-center justify-center mr-4 shrink-0">
+                            <span class="text-white text-xl">🔧</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-900">问题分解</h4>
+                    </div>
+                    <p class="text-gray-600 mb-4">把复杂的大问题拆解成若干个更小、更易处理的独立小问题。</p>
+                    <!-- Image for Problem Decomposition -->
+                    <img src="img/problem_decomposition.png" alt="问题分解示意图" class="w-full h-48 object-contain mb-6 rounded-lg">
+                    <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-4">
+                        <h5 class="font-semibold text-red-800 mb-2">生活例子：烤披萨</h5>
+                        <ul class="text-red-700 space-y-1 list-disc list-inside">
+                            <li>准备面团</li>
+                            <li>制作酱料</li>
+                            <li>准备馅料</li>
+                            <li>烘烤</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
+                        <h5 class="font-semibold text-blue-800 mb-2">技术应用</h5>
+                        <p class="text-blue-700">编程中将大型软件分解为不同模块，每个模块负责特定功能。</p>
+                    </div>
+                    <!-- Interactive Quiz: Problem Decomposition -->
+                    <div class="mt-auto pt-6 border-t border-gray-200">
+                        <h5 class="font-semibold text-gray-800 mb-3">小测验：烤披萨的步骤</h5>
+                        <p class="text-sm text-gray-600 mb-2">将以下制作披萨的步骤拖拽到右侧的框中，并排列成正确顺序：</p>
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <div id="decomposition-source" class="md:w-1/2 space-y-2 p-2 bg-gray-50 rounded-md border">
+                                <!-- Draggable items will be populated by JS -->
+                            </div>
+                            <div id="decomposition-target" class="md:w-1/2 min-h-[150px] bg-gray-100 p-3 rounded-md border border-dashed border-gray-400 flex flex-col space-y-2 items-center justify-center">
+                                <span class="text-xs text-gray-500">将步骤拖到这里</span>
+                            </div>
+                        </div>
+                        <button onclick="checkDecompositionQuiz()" class="mt-3 bg-red-500 hover:bg-red-600 text-white text-sm px-4 py-2 rounded-md transition-colors">检查顺序</button>
+                        <p id="decomposition-feedback" class="text-sm mt-2 h-4"></p>
+                    </div>
+                </div>
+
+                <!-- Pattern Recognition -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all flex flex-col">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center mr-4 shrink-0">
+                            <span class="text-white text-xl">🔍</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-900">模式识别</h4>
+                    </div>
+                    <p class="text-gray-600 mb-4">在数据中寻找相似性、规律或趋势，找到重复的模式。</p>
+                    <!-- Image for Pattern Recognition -->
+                    <img src="img/pattern_recognition.png" alt="模式识别示意图" class="w-full h-48 object-contain mb-6 rounded-lg">
+                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                        <h5 class="font-semibold text-yellow-800 mb-2">生活例子：数学数列</h5>
+                        <p class="text-yellow-700">2, 4, 6, 8, 10... (规律：每个数比前一个数大2)</p>
+                    </div>
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
+                        <h5 class="font-semibold text-blue-800 mb-2">技术应用</h5>
+                        <p class="text-blue-700">AI图像识别通过分析大量图片学习识别物体的共同特征。</p>
+                    </div>
+                    <!-- Interactive Quiz: Pattern Recognition -->
+                    <div class="mt-auto pt-6 border-t border-gray-200">
+                        <h5 class="font-semibold text-gray-800 mb-3">小测验：找规律</h5>
+                        <p class="text-sm text-gray-600 mb-2">观察数列：1, 4, 9, 16, ?  下一个数字是什么？</p>
+                        <input type="text" id="pattern-input" class="border border-gray-300 rounded-md px-3 py-2 text-sm w-24 focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500" placeholder="输入数字">
+                        <button onclick="checkPatternQuiz()" class="ml-2 bg-yellow-500 hover:bg-yellow-600 text-white text-sm px-4 py-2 rounded-md transition-colors">确认</button>
+                        <p id="pattern-feedback" class="text-sm mt-2 h-4"></p>
+                    </div>
+                </div>
+
+                <!-- Abstraction -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all flex flex-col">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-teal-500 rounded-lg flex items-center justify-center mr-4 shrink-0">
+                            <span class="text-white text-xl">🎯</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-900">抽象</h4>
+                    </div>
+                    <p class="text-gray-600 mb-4">聚焦于问题的关键信息，忽略不相关的细节。</p>
+                     <!-- Image for Abstraction -->
+                    <img src="img/abstraction.png" alt="抽象示意图" class="w-full h-48 object-contain mb-6 rounded-lg">
+                    <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-4">
+                        <h5 class="font-semibold text-green-800 mb-2">生活例子：地铁线路图</h5>
+                        <p class="text-green-700">只画出站点、线路和换乘信息，忽略街道、建筑的具体细节。</p>
+                    </div>
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
+                        <h5 class="font-semibold text-blue-800 mb-2">技术应用</h5>
+                        <p class="text-blue-700">URL地址是对网络资源的抽象，我们无需知道服务器的具体物理位置。</p>
+                    </div>
+                     <!-- Interactive Quiz: Abstraction -->
+                    <div class="mt-auto pt-6 border-t border-gray-200">
+                        <h5 class="font-semibold text-gray-800 mb-3">小测验：信息抽象</h5>
+                        <p class="text-sm text-gray-600 mb-2">如果要画一张从你家到学校的简单路线图给朋友，以下哪个细节最不重要，可以省略？</p>
+                        <div id="abstraction-options" class="space-y-1 text-sm">
+                            <label class="block"><input type="radio" name="abstraction" value="a"> A. 主要街道名称</label>
+                            <label class="block"><input type="radio" name="abstraction" value="b"> B. 沿途每棵树的颜色</label>
+                            <label class="block"><input type="radio" name="abstraction" value="c"> C. 重要的十字路口</label>
+                            <label class="block"><input type="radio" name="abstraction" value="d"> D. 学校的大致方向</label>
+                        </div>
+                        <button onclick="checkAbstractionQuiz()" class="mt-3 bg-green-500 hover:bg-green-600 text-white text-sm px-4 py-2 rounded-md transition-colors">选择</button>
+                        <p id="abstraction-feedback" class="text-sm mt-2 h-4"></p>
+                    </div>
+                </div>
+
+                <!-- Algorithmic Thinking -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all flex flex-col">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-indigo-500 rounded-lg flex items-center justify-center mr-4 shrink-0">
+                            <span class="text-white text-xl">⚡</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-900">算法设计</h4>
+                    </div>
+                    <p class="text-gray-600 mb-4">设计清晰、有限且按顺序执行的步骤序列来解决问题。</p>
+                    <!-- Image for Algorithmic Thinking -->
+                    <img src="img/algorithmic_thinking.png" alt="算法设计示意图" class="w-full h-48 object-contain mb-6 rounded-lg">
+                    <div class="bg-purple-50 border-l-4 border-purple-400 p-4 mb-4">
+                        <h5 class="font-semibold text-purple-800 mb-2">生活例子：制作三明治</h5>
+                        <p class="text-purple-700">拿面包 → 抹酱 → 放馅料 → 盖上面包片</p>
+                    </div>
+                     <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
+                        <h5 class="font-semibold text-blue-800 mb-2">技术应用</h5>
+                        <p class="text-blue-700">搜索引擎通过复杂算法在海量网页中快速找到相关结果。</p>
+                    </div>
+
+                    <!-- Programming Logic Examples -->
+                    <div class="mt-auto pt-6 border-t border-gray-200">
+                        <h5 class="font-semibold text-gray-800 mb-3">简单编程逻辑示例</h5>
+                        <div class="mb-4">
+                            <h6 class="font-medium text-gray-700 mb-1 text-sm">示例1: 制作柠檬水的步骤 (伪代码)</h6>
+                            <pre class="bg-gray-100 p-3 rounded-md text-xs text-gray-700 overflow-x-auto"><code>开始
+  1. 取一个杯子
+  2. 将柠檬切片，放入杯中
+  3. 加入适量糖
+  4. 倒入凉水
+  5. 用勺子搅拌均匀
+  6. 尝一尝
+  7. 如果 (不够甜) 那么
+       回到步骤 3
+     否则 如果 (不够酸) 那么
+       加入更多柠檬片，回到步骤 5
+     否则
+       完成，享用柠檬水
+结束</code></pre>
+                        </div>
+                        <div class="mb-6">
+                            <h6 class="font-medium text-gray-700 mb-1 text-sm">示例2: 判断数字是否为偶数 (伪代码)</h6>
+                            <pre class="bg-gray-100 p-3 rounded-md text-xs text-gray-700 overflow-x-auto"><code>开始
+  输入一个数字 N
+  如果 (N 除以 2 的余数 等于 0) 那么
+    输出 "N是偶数"
+  否则
+    输出 "N是奇数"
+结束</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Quiz: Algorithmic Thinking -->
+                    <div class="pt-6 border-t border-gray-200">
+                        <h5 class="font-semibold text-gray-800 mb-3">小测验：泡茶的顺序</h5>
+                        <p class="text-sm text-gray-600 mb-2">以下是“泡一杯茶”的步骤，哪个选项是正确的顺序？</p>
+                        <ol class="list-decimal list-inside text-sm text-gray-600 mb-2">
+                            <li>把茶叶放入杯中</li>
+                            <li>把杯子拿到桌上</li>
+                            <li>倒入热水</li>
+                            <li>等待3分钟</li>
+                        </ol>
+                        <div id="algorithm-options" class="space-y-1 text-sm">
+                            <label class="block"><input type="radio" name="algorithm" value="a"> A. 2, 1, 3, 4</label>
+                            <label class="block"><input type="radio" name="algorithm" value="b"> B. 1, 2, 3, 4</label>
+                            <label class="block"><input type="radio" name="algorithm" value="c"> C. 3, 1, 2, 4</label>
+                        </div>
+                        <button onclick="checkAlgorithmQuiz()" class="mt-3 bg-purple-500 hover:bg-purple-600 text-white text-sm px-4 py-2 rounded-md transition-colors">选择</button>
+                        <p id="algorithm-feedback" class="text-sm mt-2 h-4"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Flow Section -->
+        <section id="process-flow" class="mb-20">
+            <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+                <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">计算思维解决问题流程</h3>
+                <!-- SVG content retained for context, but not directly modified -->
+                <div class="flex justify-center mb-8">
+                    <svg width="800" height="250" xmlns="http://www.w3.org/2000/svg" class="max-w-full h-auto computational-thinking-svg">
+                        <style>
+                            .svg-container-rect { fill: #f9f9f9; stroke: #d1d5db; stroke-width: 1px; }
+                            .svg-title { font-family: sans-serif; font-size: 18px; font-weight: bold; text-anchor: middle; dominant-baseline: central; fill: #1f2937; }
+                            .svg-subtitle { font-family: sans-serif; font-size: 14px; text-anchor: middle; dominant-baseline: central; fill: #4b5563; }
+                            .svg-box { fill: #e0f7fa; stroke: #0077cc; stroke-width: 2px; cursor: default; transition: fill 0.2s ease, stroke 0.2s ease; }
+                            .svg-text { font-family: sans-serif; font-size: 12px; text-anchor: middle; dominant-baseline: central; fill: #374151; pointer-events: none; transition: font-weight 0.2s ease, fill 0.2s ease; }
+                            .svg-box-highlight { fill: #b3e5fc !important; stroke: #005b9f !important; }
+                            .svg-text-highlight { font-weight: bold !important; fill: #005b9f !important; }
+                            .svg-arrow { stroke: #0077cc; stroke-width: 2px; marker-end: url(#arrowhead_blue); }\n
+                            .svg-link-arrow { stroke: #6b7280; stroke-width: 1px; marker-end: url(#arrowhead_gray); stroke-dasharray: 4;}\n
+                            #arrowhead_blue { fill: #0077cc; stroke: #0077cc; }\n
+                            #arrowhead_gray { fill: #6b7280; stroke: #6b7280; }\n
+                        </style>
+                        <defs>
+                            <marker id="arrowhead_blue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">\n
+                                <polygon points="0 0, 10 3.5, 0 7"></polygon>\n
+                            </marker>\n
+                            <marker id="arrowhead_gray" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">\n
+                                <polygon points="0 0, 10 3.5, 0 7"></polygon>\n
+                            </marker>\n
+                        </defs>\n
+
+                        <rect class="svg-container-rect" x="10" y="10" width="780" height="230" rx="15" ry="15"/>
+                        <text class="svg-title" x="400" y="30">计算思维解决问题流程</text>\n
+                        <text class="svg-subtitle" x="400" y="50">（以计算机科学方法为例）</text>\n
+
+                        <g data-id="group1">\n
+                            <rect id="svg-box-problem" class="svg-box" x="50" y="80" width="150" height="40" rx="5" ry="5"/>\n
+                            <text id="svg-text-problem" class="svg-text" x="125" y="100">1. 面对复杂问题</text>\n
+                        </g>\n
+                        \n
+                        <g data-id="group2">\n
+                            <rect id="svg-box-decomposition" class="svg-box" x="250" y="80" width="150" height="40" rx="5" ry="5"/>\n
+                            <text id="svg-text-decomposition" class="svg-text" x="325" y="100">2. 问题分解</text>\n
+                        </g>\n
+
+                        <g data-id="group3">\n
+                            <rect id="svg-box-pattern" class="svg-box" x="450" y="80" width="150" height="40" rx="5" ry="5"/>\n
+                            <text id="svg-text-pattern" class="svg-text" x="525" y="100">3. 模式识别</text>\n
+                        </g>\n
+
+                        <g data-id="group4">\n
+                            <rect id="svg-box-abstraction" class="svg-box" x="650" y="80" width="100" height="40" rx="5" ry="5"/>\n
+                            <text id="svg-text-abstraction" class="svg-text" x="700" y="100">4. 抽象</text>\n
+                        </g>\n
+
+                        <g data-id="group5">\n
+                            <rect id="svg-box-algorithm" class="svg-box" x="350" y="170" width="150" height="40" rx="5" ry="5"/>\n
+                            <text id="svg-text-algorithm" class="svg-text" x="425" y="190">5. 算法设计</text>\n
+                        </g>\n
+                        \n
+                        <line class="svg-arrow" x1="200" y1="100" x2="250" y2="100"/>\n
+                        <line class="svg-arrow" x1="400" y1="100" x2="450" y1="100"/>\n
+                        <line class="svg-arrow" x1="600" y1="100" x2="650" y2="100"/>\n
+
+                        <line class="svg-arrow" x1="700" y1="120" x2="650" y2="170"/> <!-- from Abstraction to Algorithm (via Solution) -->\n
+                        <line class="svg-arrow" x1="325" y1="120" x2="375" y2="170"/> <!-- from Decomposition to Algorithm -->\n
+                        <line class="svg-arrow" x1="525" y1="120" x2="475" y2=\"170\"/> <!-- from Pattern Recognition to Algorithm -->\n
+                        \n
+                        <g data-id="group6">\n
+                            <rect id="svg-box-solution" class="svg-box" x="600" y="170" width="150" height="40" rx="5" ry="5"/>\n
+                            <text id="svg-text-solution" class="svg-text" x="675" y="190">6. 解决问题</text>\n
+                        </g>\n
+
+                        <line class="svg-arrow" x1="500" y1="190" x2="600" y2="190"/> <!-- from Algorithm to Solution -->\n
+
+                        <line class="svg-link-arrow" x1="425" y1="210" x2="425" y2="230"/>\n
+                        <text class="svg-text" style="font-size:11px; fill: #4b5563;" x="425" y="235" dominant-baseline="hanging">(实现自动化)</text>\n
+                    </svg>
+                </div>
+                <p class="text-center text-gray-600 italic">图：计算思维解决问题的简化流程 (鼠标悬停到方块上试试)</p>
+            </div>
+        </section>
+
+        <!-- Applications Section -->
+        <section id="applications" class="mb-20">
+            <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 md:p-12">
+                <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">计算思维在科技领域的应用</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover-lift">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center mb-4">
+                            <span class="text-white text-xl">💻</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-3">编程与软件开发</h4>
+                        <p class="text-gray-600">通过问题分解将复杂软件拆分为模块，使用抽象简化复杂性，设计算法实现功能。</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover-lift">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg flex items-center justify-center mb-4">
+                            <span class="text-white text-xl">🤖</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-3">人工智能</h4>
+                        <p class="text-gray-600">AI通过模式识别学习数据规律，使用抽象提取关键特征，设计算法实现智能决策。</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover-lift">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center mb-4">
+                            <span class="text-white text-xl">🌐</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-3">互联网技术</h4>
+                        <p class="text-gray-600">搜索引擎通过算法快速检索信息，社交网络使用模式识别推荐内容。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="text-center py-16">
+            <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-12 text-white">
+                <h3 class="text-3xl font-bold mb-4">开启你的计算思维之旅</h3>
+                <p class="text-xl mb-8 opacity-90">
+                    计算思维不仅仅是编程技能，它是一种普适性的问题解决能力。
+                    掌握它，你将在数字化时代拥有无限可能！
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all">
+                        重新开始
+                    </button>
+                    <button onclick="showInteractiveExample()" class="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-blue-600 transition-all">
+                        综合互动练习 (猜数字)
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Further Learning Section -->
+        <section id="further-learning" class="mb-20">
+            <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+                <h3 class="text-3xl font-bold text-gray-900 mb-10 text-center">拓展学习资源</h3>
+                <div class="grid md:grid-cols-2 gap-x-8 gap-y-6">
+                    <div class="bg-slate-50 p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <h4 class="text-xl font-semibold text-blue-700 mb-2">可汗学院 (Khan Academy)</h4>
+                        <p class="text-gray-600 mb-4 text-sm flex-grow">提供全面的计算机科学入门课程，包括编程基础、算法等，适合系统学习和各年龄段学生。</p>
+                        <a href="https://www.khanacademy.org/computing" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 font-medium hover-lift inline-flex items-center self-start mt-auto">
+                            访问网站 <span class="ml-1">&rarr;</span>
+                        </a>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <h4 class="text-xl font-semibold text-green-700 mb-2">Code.org</h4>
+                        <p class="text-gray-600 mb-4 text-sm flex-grow">通过游戏化的方式学习编程，提供“编程一小时”等趣味活动，非常适合中小学生及编程初学者。</p>
+                        <a href="https://code.org/" target="_blank" rel="noopener noreferrer" class="text-green-600 hover:text-green-800 font-medium hover-lift inline-flex items-center self-start mt-auto">
+                            访问网站 <span class="ml-1">&rarr;</span>
+                        </a>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <h4 class="text-xl font-semibold text-orange-600 mb-2">Scratch (MIT)</h4>
+                        <p class="text-gray-600 mb-4 text-sm flex-grow">麻省理工学院开发的图形化编程工具，拖拽积木即可创作故事、游戏和动画，趣味性强，极易上手，培养创造力。</p>
+                        <a href="https://scratch.mit.edu/" target="_blank" rel="noopener noreferrer" class="text-orange-600 hover:text-orange-800 font-medium hover-lift inline-flex items-center self-start mt-auto">
+                            访问网站 <span class="ml-1">&rarr;</span>
+                        </a>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <h4 class="text-xl font-semibold text-purple-700 mb-2">freeCodeCamp</h4>
+                        <p class="text-gray-600 mb-4 text-sm flex-grow">提供大量免费的编程认证课程，内容涵盖网页开发、数据科学、算法等，适合有一定自学能力的青少年和成人。</p>
+                        <a href="https://www.freecodecamp.org/" target="_blank" rel="noopener noreferrer" class="text-purple-600 hover:text-purple-800 font-medium hover-lift inline-flex items-center self-start mt-auto">
+                            访问网站 <span class="ml-1">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Interactive Modal (Guessing Game) -->
+    <div id="interactive-modal" class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm hidden z-[100] flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-900">互动练习：数字猜测游戏</h3>
+                <button onclick="hideInteractiveExample()" class="text-gray-500 hover:text-gray-700 text-3xl leading-none">&times;</button>
+            </div>
+            <div id="game-content">
+                <p class="text-gray-600 mb-6">计算机想了一个1-100之间的数字，你来猜。运用计算思维（特别是二分查找的策略）来高效找到答案！</p>
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6 rounded-r-lg">
+                    <h4 class="font-semibold text-blue-800 mb-2">提示：运用计算思维</h4>
+                    <ul class="text-blue-700 space-y-1 text-sm list-disc list-inside">
+                        <li><strong>问题分解：</strong> 将1-100的范围逐步缩小。</li>
+                        <li><strong>模式识别：</strong> 根据"大了"或"小了"的反馈调整猜测策略。</li>
+                        <li><strong>抽象：</strong> 只关注数字大小，忽略其他不相关信息。</li>
+                        <li><strong>算法设计：</strong> 推荐策略是每次猜当前范围的中间值（二分查找）。</li>
+                    </ul>
+                </div>
+                <div class="text-center">
+                    <p class="text-lg mb-4">目标数字范围：<span id="range-display" class="font-semibold text-blue-600">1 - 100</span></p>
+                    <p class="text-lg mb-4">已猜次数：<span id="guess-count" class="font-semibold text-purple-600">0</span></p>
+                    <input type="number" id="guess-input" min="1" max="100" placeholder="输入你的猜测" class="border border-gray-300 rounded-lg px-4 py-2 text-center text-lg mb-4 w-40 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <br>
+                    <button onclick="makeGuess()" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all mr-3 text-base">
+                        确认猜测
+                    </button>
+                    <button onclick="resetGame()" class="border border-gray-400 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all text-base">
+                        重新开始
+                    </button>
+                    <div id="game-feedback" class="mt-5 text-lg font-semibold min-h-[2.5em]"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-6">
+                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-lg">💡</span>
+                </div>
+                <h2 class="text-2xl font-bold">计算思维</h2>
+            </div>
+            <p class="text-gray-400 mb-6">培养面向未来的问题解决能力</p>
+            <p class="text-gray-500 text-sm">
+                © <span id="current-year">2024</span> 计算思维科普网站. 启发学生探索计算机科学的奥秘
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

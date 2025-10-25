@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算思维概论课程网站 | CUC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-white to-purple-50 min-h-screen text-gray-700">
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <nav class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">💡</span>
+                    </div>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        计算思维概论
+                    </h1>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#courses" class="text-gray-600 hover:text-blue-600 transition-colors">课程内容</a>
+                    <a href="#lab-tools" class="text-gray-600 hover:text-blue-600 transition-colors">实验工具</a>
+                    <a href="#about" class="text-gray-600 hover:text-blue-600 transition-colors">关于网站</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-20 px-6" id="home">
+        <div class="container mx-auto text-center">
+            <div class="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                🎓 计算思维概论课程网站
+            </div>
+            <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                探索计算思维的
+                <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">核心世界</span>
+            </h2>
+            <p class="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+                计算思维概论是中国传媒大学计算机与网络空间安全学院的基础课程，
+                旨在培养学生的计算思维能力，理解计算机科学的基本原理和应用。
+            </p>
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8 max-w-4xl mx-auto mb-12">
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    本网站提供<span class="font-semibold text-blue-600">课程介绍</span>、<span class="font-semibold text-purple-600">在线教材</span>、
+                    <span class="font-semibold text-green-600">电子课件</span>和<span class="font-semibold text-red-600">实验工具</span>等全方位教学资源，
+                    帮助学生更好地理解和掌握计算思维的核心概念。
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12" id="courses">
+        <h3 class="text-4xl font-bold text-gray-900 mb-4 text-center">课程内容</h3>
+        <p class="text-xl text-gray-600 mb-12 text-center">提供全方位的教学资源和学习工具</p>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <!-- 课程介绍 -->
+            <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all flex flex-col">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-blue-500 rounded-lg flex items-center justify-center mr-4 shrink-0">
+                        <span class="text-white text-xl">📚</span>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-900">课程介绍</h4>
+                </div>
+                <p class="text-gray-600 mb-4 flex-grow">了解课程的教学目标、教学内容、考核方式等详细信息。</p>
+                <ul class="text-sm text-gray-600 mb-6 space-y-2">
+                    <li>✓ 课程教学目标</li>
+                    <li>✓ 教学内容大纲</li>
+                    <li>✓ 考核方式说明</li>
+                    <li>✓ 学习建议指导</li>
+                </ul>
+                <a href="course-introduction.html" class="block w-full bg-gradient-to-r from-green-500 to-blue-500 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center">
+                    查看详情 →
+                </a>
+            </div>
+
+            <!-- 在线教材 -->
+            <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all flex flex-col">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg flex items-center justify-center mr-4 shrink-0">
+                        <span class="text-white text-xl">📖</span>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-900">在线教材</h4>
+                </div>
+                <p class="text-gray-600 mb-4 flex-grow">提供完整的在线教材内容，包括理论讲解、案例分析、习题练习等。</p>
+                <ul class="text-sm text-gray-600 mb-6 space-y-2">
+                    <li>✓ 章节内容浏览</li>
+                    <li>✓ 理论要点解析</li>
+                    <li>✓ 案例分析讲解</li>
+                    <li>✓ 习题在线练习</li>
+                </ul>
+                <a href="./OnlineTextbook/index.html" class="block w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center">
+                    进入教材 →
+                </a>
+            </div>
+
+            <!-- 电子课件 -->
+            <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all flex flex-col">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-pink-500 rounded-lg flex items-center justify-center mr-4 shrink-0">
+                        <span class="text-white text-xl">📊</span>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-900">电子课件</h4>
+                </div>
+                <p class="text-gray-600 mb-4 flex-grow">提供课程所有章节的电子课件下载，便于课堂学习和课后复习。</p>
+                <ul class="text-sm text-gray-600 mb-6 space-y-2">
+                    <li>✓ 章节课件下载</li>
+                    <li>✓ 多种格式支持</li>
+                    <li>✓ 高清课件质量</li>
+                    <li>✓ 定期更新维护</li>
+                </ul>
+                <a href="e-courseware.html" class="block w-full bg-gradient-to-r from-orange-500 to-pink-500 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center">
+                    进入课件 →
+                </a>
+            </div>
+
+            <!-- 实验工具 -->
+            <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all flex flex-col">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-red-400 to-pink-500 rounded-lg flex items-center justify-center mr-4 shrink-0">
+                        <span class="text-white text-xl">🧪</span>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-900">实验工具</h4>
+                </div>
+                <p class="text-gray-600 mb-4 flex-grow">提供一系列在线实验辅助工具，帮助学生更好地理解和掌握计算思维的核心概念。</p>
+                <ul class="text-sm text-gray-600 mb-6 space-y-2">
+                    <li>✓ 图像编码工具</li>
+                    <li>✓ 字符编码工具</li>
+                    <li>✓ 数值转换工具</li>
+                    <li>✓ 更多工具开发中</li>
+                </ul>
+                <button onclick="document.getElementById('lab-tools').scrollIntoView({behavior: 'smooth'})" class="bg-gradient-to-r from-red-500 to-pink-500 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 w-full">
+                    查看工具 →
+                </button>
+            </div>
+
+        </div>
+
+        <!-- AI助教 Section -->
+        <div class="mt-12">
+            <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl shadow-xl p-8 border-4 border-indigo-200">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                    <div class="flex-shrink-0">
+                        <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center">
+                            <span class="text-white text-3xl">🤖</span>
+                        </div>
+                    </div>
+                    <div class="flex-grow text-center md:text-left">
+                        <h4 class="text-3xl font-bold text-gray-900 mb-3">AI助教</h4>
+                        <p class="text-lg text-gray-700 mb-4">智能问答助手，随时解答您关于计算思维的疑问，提供个性化学习指导</p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                            <div class="bg-white/80 rounded-lg p-3 text-center">
+                                <div class="text-2xl mb-1">⌚</div>
+                                <div class="text-sm font-semibold text-gray-700">24小时在线</div>
+                            </div>
+                            <div class="bg-white/80 rounded-lg p-3 text-center">
+                                <div class="text-2xl mb-1">🎯</div>
+                                <div class="text-sm font-semibold text-gray-700">个性化建议</div>
+                            </div>
+                            <div class="bg-white/80 rounded-lg p-3 text-center">
+                                <div class="text-2xl mb-1">📚</div>
+                                <div class="text-sm font-semibold text-gray-700">详细讲解</div>
+                            </div>
+                            <div class="bg-white/80 rounded-lg p-3 text-center">
+                                <div class="text-2xl mb-1">✏️</div>
+                                <div class="text-sm font-semibold text-gray-700">题目辅导</div>
+                            </div>
+                        </div>
+                        <button onclick="openAIAssistant()" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-lg transition-all transform hover:scale-105 mx-auto md:mx-0">
+                            <i class="fas fa-comments mr-2"></i>开始对话
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Lab Tools Section -->
+    <section class="py-20 px-6 bg-white/50" id="lab-tools">
+        <div class="container mx-auto">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-bold text-gray-900 mb-4">实验工具</h3>
+                <p class="text-xl text-gray-600">通过互动式实验工具，深入理解计算思维的核心概念</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all">
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl mb-4">
+                            <i class="fas fa-image text-white text-3xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-900 mb-2">图像编码</h4>
+                        <p class="text-gray-600">探索数字图像在计算机中的表示方式</p>
+                    </div>
+                    <ul class="text-sm text-gray-600 mb-6 space-y-2">
+                        <li>✓ RGB像素编码查看</li>
+                        <li>✓ 图像缩放与像素分析</li>
+                        <li>✓ 十六进制数值串生成图像</li>
+                        <li>✓ 实时颜色信息显示</li>
+                    </ul>
+                    <a href="image_encoding.html" class="block w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center">
+                        进入工具 →
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all">
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl mb-4">
+                            <i class="fas fa-keyboard text-white text-3xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-900 mb-2">字符编码</h4>
+                        <p class="text-gray-600">查看字符的多种编码格式</p>
+                    </div>
+                    <ul class="text-sm text-gray-600 mb-6 space-y-2">
+                        <li>✓ Unicode编码查看</li>
+                        <li>✓ UTF-8/UTF-16编码转换</li>
+                        <li>✓ GBK/GB2312编码支持</li>
+                        <li>✓ 字符详细信息显示</li>
+                    </ul>
+                    <a href="character_encoding.html" class="block w-full bg-gradient-to-r from-green-600 to-teal-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center">
+                        进入工具 →
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all">
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl mb-4">
+                            <i class="fas fa-calculator text-white text-3xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-900 mb-2">数值转换</h4>
+                        <p class="text-gray-600">进制转换与运算工具</p>
+                    </div>
+                    <ul class="text-sm text-gray-600 mb-6 space-y-2">
+                        <li>✓ 进制转换（2/10/16）</li>
+                        <li>✓ 算术运算（加减乘除）</li>
+                        <li>✓ 逻辑运算（AND/OR/XOR/NOT）</li>
+                        <li>✓ 实时结果显示</li>
+                    </ul>
+                    <a href="number_converter.html" class="block w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center">
+                        进入工具 →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-20 px-6" id="about">
+        <div class="container mx-auto">
+            <div class="bg-white rounded-2xl shadow-xl p-12">
+                <h3 class="text-4xl font-bold text-gray-900 mb-8 text-center">
+                    <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">关于本网站</span>
+                </h3>
+                <div class="max-w-4xl mx-auto space-y-6 text-lg text-gray-700 leading-relaxed">
+                    <p>
+                        本网站为<span class="font-semibold text-blue-600">计算思维概论课程</span>的综合性教学平台，提供课程介绍、在线教材、电子课件和实验工具等全方位教学资源。
+                    </p>
+                    <p>
+                        网站采用<span class="font-semibold text-purple-600">现代化Web技术</span>开发，支持多种浏览器访问，无需安装任何插件，便捷高效。
+                    </p>
+                    <p>
+                        欢迎各位同学积极使用本网站的学习资源，如有问题或建议，请及时反馈。
+                    </p>
+                </div>
+                <div class="mt-12 pt-8 border-t border-gray-200 text-center">
+                    <p class="text-xl font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                        <i class="fas fa-university"></i> 中国传媒大学 | 计算机与网络空间安全学院
+                    </p>
+                    <p class="text-gray-600">
+                        © 2025 CUC Introduction to Computational Thinking Course Website
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Assistant Modal -->
+    <div id="ai-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] flex flex-col">
+            <div class="flex items-center justify-between p-6 border-b border-gray-200">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white text-xl">🤖</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900">AI助教 - 随时为您答疑解惑</h3>
+                </div>
+                <button onclick="closeAIAssistant()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div class="flex-1 overflow-hidden">
+                <iframe
+                    src="https://udify.app/chatbot/zYqORxuvMnnvxOGS"
+                    style="width: 100%; height: 100%; min-height: 600px"
+                    frameborder="0"
+                    allow="microphone">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-6">
+        <div class="container mx-auto text-center">
+            <p class="text-lg">
+                <i class="fas fa-code"></i> Built with passion for Computational Thinking Education
+            </p>
+            <p class="text-gray-400 mt-2">用心打造计算思维教育平台</p>
+        </div>
+    </footer>
+
+    <script>
+        // AI Assistant functions
+        function openAIAssistant() {
+            document.getElementById('ai-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAIAssistant() {
+            document.getElementById('ai-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('ai-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAIAssistant();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeAIAssistant();
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.bg-white.rounded-2xl').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

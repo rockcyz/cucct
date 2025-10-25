@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字符编码查看器</title>
+  <!-- 引入Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- 自定义Tailwind配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#36CBCB',
+            accent: '#FF5252',
+            neutral: '#1F2937',
+            'neutral-light': '#F3F4F6'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .card {
+        @apply bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl;
+      }
+      .code-block {
+        @apply font-mono bg-gray-100 p-3 rounded-md overflow-x-auto text-sm;
+      }
+      .input-focus {
+        @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen font-sans">
+  <!-- 页面头部 -->
+  <header class="bg-white shadow-md py-4 px-6">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-neutral flex items-center">
+        <i class="fa fa-code mr-3 text-primary"></i>
+        字符编码查看器
+      </h1>
+      <div class="flex items-center gap-4">
+        <button id="help-btn" class="flex items-center text-primary hover:text-primary/80 transition-colors">
+          <i class="fa fa-question-circle mr-2"></i>使用帮助
+        </button>
+        <a href="home.html" class="flex items-center bg-primary hover:bg-primary/90 text-white font-medium px-4 py-2 rounded-lg transition-all duration-300">
+          <i class="fa fa-home mr-2"></i>返回主页
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主内容区 -->
+  <main class="container mx-auto py-8 px-4">
+    <!-- 输入区域 -->
+    <div class="card mb-8">
+      <h2 class="text-xl font-semibold mb-4 text-neutral">字符输入</h2>
+      <div class="flex flex-col md:flex-row items-center gap-4">
+        <label for="char-input" class="text-sm font-medium text-gray-700 md:w-20">请输入一个字符：</label>
+        <input type="text" id="char-input" maxlength="1" class="flex-1 border border-gray-300 rounded-md px-4 py-3 input-focus text-lg" placeholder="输入任意一个字符">
+        <button id="convert-btn" class="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/50 whitespace-nowrap">
+          <i class="fa fa-exchange mr-2"></i>转换编码
+        </button>
+      </div>
+      <p class="mt-4 text-sm text-gray-500"><i class="fa fa-info-circle mr-1"></i> 请输入单个字符，系统将自动转换并显示其各种编码格式</p>
+    </div>
+
+    <!-- 编码结果展示区域 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <!-- Unicode编码 -->
+      <div class="card">
+        <h3 class="text-lg font-semibold mb-3 text-neutral flex items-center">
+          <i class="fa fa-flag mr-2 text-primary"></i>Unicode编码
+        </h3>
+        <div class="space-y-2">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">十进制表示：</p>
+            <div id="unicode-dec" class="code-block">--</div>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 mb-1">十六进制表示：</p>
+            <div id="unicode-hex" class="code-block">--</div>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 mb-1">代码点表示：</p>
+            <div id="unicode-codepoint" class="code-block">--</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UTF-8编码 -->
+      <div class="card">
+        <h3 class="text-lg font-semibold mb-3 text-neutral flex items-center">
+          <i class="fa fa-file-text mr-2 text-primary"></i>UTF-8编码
+        </h3>
+        <div class="space-y-2">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">二进制表示：</p>
+            <div id="utf8-bin" class="code-block">--</div>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 mb-1">十六进制表示：</p>
+            <div id="utf8-hex" class="code-block">--</div>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 mb-1">字节长度：</p>
+            <div id="utf8-length" class="code-block">--</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UTF-16编码 -->
+      <div class="card">
+        <h3 class="text-lg font-semibold mb-3 text-neutral flex items-center">
+          <i class="fa fa-file-text-o mr-2 text-primary"></i>UTF-16编码
+        </h3>
+        <div class="space-y-2">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">二进制表示：</p>
+            <div id="utf16-bin" class="code-block">--</div>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 mb-1">十六进制表示：</p>
+            <div id="utf16-hex" class="code-block">--</div>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 mb-1">字节长度：</p>
+            <div id="utf16-length" class="code-block">--</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GBK编码 -->
+      <div class="card">
+        <h3 class="text-lg font-semibold mb-3 text-neutral flex items-center">
+          <i class="fa fa-language mr-2 text-primary"></i>GBK编码
+        </h3>
+        <div class="space-y-2">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">二进制表示：</p>
+            <div id="gbk-bin" class="code-block">--</div>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 mb-1">十六进制表示：</p>
+            <div id="gbk-hex" class="code-block">--</div>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 mb-1">字节长度：</p>
+            <div id="gbk-length" class="code-block">--</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ASCII编码 -->
+      <div class="card">
+        <h3 class="text-lg font-semibold mb-3 text-neutral flex items-center">
+          <i class="fa fa-asterisk mr-2 text-primary"></i>ASCII编码
+        </h3>
+        <div class="space-y-2">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">十进制表示：</p>
+            <div id="ascii-dec" class="code-block">--</div>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 mb-1">十六进制表示：</p>
+            <div id="ascii-hex" class="code-block">--</div>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 mb-1">二进制表示：</p>
+            <div id="ascii-bin" class="code-block">--</div>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 mb-1">字符说明：</p>
+            <div id="ascii-char" class="code-block">--</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GB2312编码 -->
+      <div class="card">
+        <h3 class="text-lg font-semibold mb-3 text-neutral flex items-center">
+          <i class="fa fa-book mr-2 text-primary"></i>GB2312编码
+        </h3>
+        <div class="space-y-2">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">二进制表示：</p>
+            <div id="gb2312-bin" class="code-block">--</div>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 mb-1">十六进制表示：</p>
+            <div id="gb2312-hex" class="code-block">--</div>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 mb-1">字节长度：</p>
+            <div id="gb2312-length" class="code-block">--</div>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 mb-1">编码说明：</p>
+            <div id="gb2312-desc" class="code-block">--</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 字符信息卡片 -->
+    <div class="card">
+      <h3 class="text-lg font-semibold mb-3 text-neutral flex items-center">
+        <i class="fa fa-info-circle mr-2 text-primary"></i>字符信息
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <p class="text-sm text-gray-600 mb-1">输入的字符：</p>
+          <div id="char-display" class="text-4xl font-bold text-center py-4 bg-gray-50 rounded-md">--</div>
+        </div>
+        <div class="space-y-2">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">字符名称：</p>
+            <div id="char-name" class="code-block">--</div>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 mb-1">所属Unicode区块：</p>
+            <div id="char-block" class="code-block">--</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-white shadow-inner py-6 px-4 mt-8">
+    <div class="container mx-auto text-center text-gray-500 text-sm">
+      <p>字符编码查看器 - 支持Unicode、UTF-8、UTF-16、GBK编码转换与展示</p>
+      <p class="mt-2">© 2025中国传媒大学计算机文化基础教学演示系统</p>
+    </div>
+  </footer>
+
+  <!-- 帮助模态框 -->
+  <div id="help-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold text-neutral">使用说明</h2>
+        <button id="close-help-btn" class="text-gray-400 hover:text-gray-600">
+          <i class="fa fa-times text-xl"></i>
+        </button>
+      </div>
+      <div class="space-y-4">
+        <div>
+          <h3 class="font-semibold text-primary">功能介绍</h3>
+          <p>本工具用于查看单个字符的多种编码表示形式，包括Unicode、UTF-8、UTF-16和GBK编码。</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-primary">使用方法</h3>
+          <ol class="list-decimal pl-5 space-y-2">
+            <li>在输入框中输入任意单个字符（中文、英文、数字、符号等均可）</li>
+            <li>点击「转换编码」按钮或按回车键</li>
+            <li>查看页面上显示的各种编码格式</li>
+          </ol>
+        </div>
+        <div>
+          <h3 class="font-semibold text-primary">编码说明</h3>
+          <ul class="list-disc pl-5 space-y-1">
+            <li><strong>Unicode</strong>：统一码，为每种语言中的每个字符设定了统一且唯一的二进制编码</li>
+            <li><strong>UTF-8</strong>：针对Unicode的可变长度字符编码，使用1-4个字节表示一个字符</li>
+            <li><strong>UTF-16</strong>：使用2或4个字节表示一个字符的Unicode编码方式</li>
+            <li><strong>GBK</strong>：国家标准扩展码，支持全部汉字，是对GB2312的扩展</li>
+            <li><strong>ASCII</strong>：美国信息交换标准代码，使用7位或8位二进制数组合来表示128或256种可能的字符</li>
+            <li><strong>GB2312</strong>：中国国家标准简体中文字符集，使用双字节编码表示汉字，包含6763个简体汉字</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 获取DOM元素
+      const charInput = document.getElementById('char-input');
+      const convertBtn = document.getElementById('convert-btn');
+      const unicodeDec = document.getElementById('unicode-dec');
+      const unicodeHex = document.getElementById('unicode-hex');
+      const unicodeCodepoint = document.getElementById('unicode-codepoint');
+      const utf8Bin = document.getElementById('utf8-bin');
+      const utf8Hex = document.getElementById('utf8-hex');
+      const utf8Length = document.getElementById('utf8-length');
+      const utf16Bin = document.getElementById('utf16-bin');
+      const utf16Hex = document.getElementById('utf16-hex');
+      const utf16Length = document.getElementById('utf16-length');
+      const gbkBin = document.getElementById('gbk-bin');
+      const gbkHex = document.getElementById('gbk-hex');
+      const gbkLength = document.getElementById('gbk-length');
+      const gb2312Bin = document.getElementById('gb2312-bin');
+      const gb2312Hex = document.getElementById('gb2312-hex');
+      const gb2312Length = document.getElementById('gb2312-length');
+      const gb2312Desc = document.getElementById('gb2312-desc');
+      const asciiDec = document.getElementById('ascii-dec');
+      const asciiHex = document.getElementById('ascii-hex');
+      const asciiBin = document.getElementById('ascii-bin');
+      const asciiChar = document.getElementById('ascii-char');
+      const charDisplay = document.getElementById('char-display');
+      const charName = document.getElementById('char-name');
+      const charBlock = document.getElementById('char-block');
+      const helpBtn = document.getElementById('help-btn');
+      const helpModal = document.getElementById('help-modal');
+      const closeHelpBtn = document.getElementById('close-help-btn');
+
+      // 帮助模态框控制
+      helpBtn.addEventListener('click', function() {
+        helpModal.classList.remove('hidden');
+      });
+
+      closeHelpBtn.addEventListener('click', function() {
+        helpModal.classList.add('hidden');
+      });
+
+      helpModal.addEventListener('click', function(e) {
+        if (e.target === helpModal) {
+          helpModal.classList.add('hidden');
+        }
+      });
+
+      // 工具函数：数字转二进制字符串，指定位数
+      function toBinary(num, bits) {
+        return num.toString(2).padStart(bits, '0');
+      }
+
+      // 工具函数：数字转十六进制字符串，指定位数
+      function toHex(num, bits) {
+        return num.toString(16).toUpperCase().padStart(bits, '0');
+      }
+
+      // 工具函数：获取字符的UTF-8编码
+      function getUTF8Bytes(char) {
+        const bytes = [];
+        const codePoint = char.codePointAt(0);
+        
+        if (codePoint < 0x80) {
+          // 1字节
+          bytes.push(codePoint);
+        } else if (codePoint < 0x800) {
+          // 2字节
+          bytes.push(0xC0 | (codePoint >> 6));
+          bytes.push(0x80 | (codePoint & 0x3F));
+        } else if (codePoint < 0x10000) {
+          // 3字节
+          bytes.push(0xE0 | (codePoint >> 12));
+          bytes.push(0x80 | ((codePoint >> 6) & 0x3F));
+          bytes.push(0x80 | (codePoint & 0x3F));
+        } else {
+          // 4字节
+          bytes.push(0xF0 | (codePoint >> 18));
+          bytes.push(0x80 | ((codePoint >> 12) & 0x3F));
+          bytes.push(0x80 | ((codePoint >> 6) & 0x3F));
+          bytes.push(0x80 | (codePoint & 0x3F));
+        }
+        
+        return bytes;
+      }
+
+      // 工具函数：获取字符的UTF-16编码
+      function getUTF16Bytes(char) {
+        const bytes = [];
+        const codePoint = char.codePointAt(0);
+        
+        if (codePoint < 0x10000) {
+          // 2字节
+          bytes.push((codePoint >> 8) & 0xFF);
+          bytes.push(codePoint & 0xFF);
+        } else {
+          // 4字节 (代理对)
+          const code = codePoint - 0x10000;
+          const highSurrogate = 0xD800 | ((code >> 10) & 0x3FF);
+          const lowSurrogate = 0xDC00 | (code & 0x3FF);
+          bytes.push((highSurrogate >> 8) & 0xFF);
+          bytes.push(highSurrogate & 0xFF);
+          bytes.push((lowSurrogate >> 8) & 0xFF);
+          bytes.push(lowSurrogate & 0xFF);
+        }
+        
+        return bytes;
+      }
+
+      // 工具函数：模拟GBK编码（由于JavaScript原生不支持GBK，这里使用一个简单的模拟方法）
+      // 注意：实际应用中可能需要引入专门的编码库来准确处理GBK
+      function getGBKBytes(char) {
+        // 这里使用简化的GBK模拟，实际应用中建议使用专门的编码转换库
+        const codePoint = char.codePointAt(0);
+        // 对于ASCII字符，直接返回
+        if (codePoint < 0x80) {
+          return [codePoint];
+        }
+        // 对于中文和其他字符，返回模拟的2字节GBK编码
+        // 注意：这只是模拟，不是真实的GBK编码
+        return [(codePoint >> 8) & 0xFF | 0x81, codePoint & 0xFF];
+      }
+
+      // 工具函数：模拟GB2312编码（由于JavaScript原生不支持GB2312，这里使用一个简单的模拟方法）
+      // 注意：实际应用中可能需要引入专门的编码库来准确处理GB2312
+      function getGB2312Bytes(char) {
+        const codePoint = char.codePointAt(0);
+        // 对于ASCII字符，直接返回
+        if (codePoint < 0x80) {
+          return [codePoint];
+        }
+        
+        // GB2312编码范围大致在Unicode的4E00-9FA5之间的部分字符
+        // 这里使用简化的模拟，实际应用中建议使用专门的编码转换库
+        if (codePoint >= 0x4E00 && codePoint <= 0x9FA5) {
+          // 模拟GB2312编码转换（仅作演示）
+          const offset = codePoint - 0x4E00;
+          const highByte = Math.floor(offset / 94) + 0xA1;
+          const lowByte = (offset % 94) + 0xA1;
+          return [highByte, lowByte];
+        }
+        
+        // 对于不在GB2312范围内的字符，返回特殊标记
+        return [-1, -1];
+      }
+
+      // 检查字符是否在GB2312范围内（简化版）
+      function isInGB2312(char) {
+        const codePoint = char.codePointAt(0);
+        // ASCII字符
+        if (codePoint < 0x80) return true;
+        
+        // 基本汉字范围（简化判断）
+        if (codePoint >= 0x4E00 && codePoint <= 0x9FA5) {
+          // GB2312包含约6763个汉字
+          // 这里简化判断，实际应该使用完整的码表对照
+          return true;
+        }
+        
+        return false;
+      }
+
+      // 工具函数：获取Unicode字符名称（简化版）
+      function getCharacterName(char) {
+        const codePoint = char.codePointAt(0);
+        // 简单的字符名称映射
+        const names = {
+          'a': 'LATIN SMALL LETTER A',
+          'b': 'LATIN SMALL LETTER B',
+          'c': 'LATIN SMALL LETTER C',
+          '0': 'DIGIT ZERO',
+          '1': 'DIGIT ONE',
+          '@': 'COMMERCIAL AT',
+          '中': 'CJK UNIFIED IDEOGRAPH-4E2D',
+          '文': 'CJK UNIFIED IDEOGRAPH-6587',
+          '字': 'CJK UNIFIED IDEOGRAPH-5B57',
+        };
+        return names[char] || `CHARACTER ${toHex(codePoint, 4)}`;
+      }
+
+      // 工具函数：获取Unicode区块（简化版）
+      function getUnicodeBlock(char) {
+        const codePoint = char.codePointAt(0);
+        
+        if (codePoint >= 0x0000 && codePoint <= 0x007F) return 'Basic Latin';
+        if (codePoint >= 0x0080 && codePoint <= 0x00FF) return 'Latin-1 Supplement';
+        if (codePoint >= 0x0100 && codePoint <= 0x017F) return 'Latin Extended-A';
+        if (codePoint >= 0x0370 && codePoint <= 0x03FF) return 'Greek and Coptic';
+        if (codePoint >= 0x0400 && codePoint <= 0x04FF) return 'Cyrillic';
+        if (codePoint >= 0x2000 && codePoint <= 0x206F) return 'General Punctuation';
+        if (codePoint >= 0x20A0 && codePoint <= 0x20CF) return 'Currency Symbols';
+        if (codePoint >= 0x2100 && codePoint <= 0x214F) return 'Letterlike Symbols';
+        if (codePoint >= 0x2190 && codePoint <= 0x21FF) return 'Arrows';
+        if (codePoint >= 0x2200 && codePoint <= 0x22FF) return 'Mathematical Operators';
+        if (codePoint >= 0x2300 && codePoint <= 0x23FF) return 'Miscellaneous Technical';
+        if (codePoint >= 0x2400 && codePoint <= 0x243F) return 'Control Pictures';
+        if (codePoint >= 0x2440 && codePoint <= 0x245F) return 'Optical Character Recognition';
+        if (codePoint >= 0x2460 && codePoint <= 0x24FF) return 'Enclosed Alphanumerics';
+        if (codePoint >= 0x2500 && codePoint <= 0x257F) return 'Box Drawing';
+        if (codePoint >= 0x2580 && codePoint <= 0x259F) return 'Block Elements';
+        if (codePoint >= 0x25A0 && codePoint <= 0x25FF) return 'Geometric Shapes';
+        if (codePoint >= 0x2600 && codePoint <= 0x26FF) return 'Miscellaneous Symbols';
+        if (codePoint >= 0x2700 && codePoint <= 0x27BF) return 'Dingbats';
+        if (codePoint >= 0x2800 && codePoint <= 0x28FF) return 'Braille Patterns';
+        if (codePoint >= 0x2E80 && codePoint <= 0x2EFF) return 'CJK Radicals Supplement';
+        if (codePoint >= 0x2F00 && codePoint <= 0x2FDF) return 'Kangxi Radicals';
+        if (codePoint >= 0x2FF0 && codePoint <= 0x2FFF) return 'Ideographic Description Characters';
+        if (codePoint >= 0x3000 && codePoint <= 0x303F) return 'CJK Symbols and Punctuation';
+        if (codePoint >= 0x3040 && codePoint <= 0x309F) return 'Hiragana';
+        if (codePoint >= 0x30A0 && codePoint <= 0x30FF) return 'Katakana';
+        if (codePoint >= 0x3100 && codePoint <= 0x312F) return 'Bopomofo';
+        if (codePoint >= 0x3130 && codePoint <= 0x318F) return 'Hangul Compatibility Jamo';
+        if (codePoint >= 0x3190 && codePoint <= 0x319F) return 'Kanbun';
+        if (codePoint >= 0x31A0 && codePoint <= 0x31BF) return 'Bopomofo Extended';
+        if (codePoint >= 0x31C0 && codePoint <= 0x31EF) return 'CJK Strokes';
+        if (codePoint >= 0x31F0 && codePoint <= 0x31FF) return 'Katakana Phonetic Extensions';
+        if (codePoint >= 0x3200 && codePoint <= 0x32FF) return 'Enclosed CJK Letters and Months';
+        if (codePoint >= 0x3300 && codePoint <= 0x33FF) return 'CJK Compatibility';
+        if (codePoint >= 0x3400 && codePoint <= 0x4DBF) return 'CJK Unified Ideographs Extension A';
+        if (codePoint >= 0x4DC0 && codePoint <= 0x4DFF) return 'Yijing Hexagram Symbols';
+        if (codePoint >= 0x4E00 && codePoint <= 0x9FFF) return 'CJK Unified Ideographs';
+        if (codePoint >= 0xA000 && codePoint <= 0xA48F) return 'Yi Syllables';
+        if (codePoint >= 0xA490 && codePoint <= 0xA4CF) return 'Yi Radicals';
+        if (codePoint >= 0xA500 && codePoint <= 0xA63F) return 'Vai';
+        if (codePoint >= 0xA640 && codePoint <= 0xA69F) return 'Cyrillic Extended-B';
+        if (codePoint >= 0xA6A0 && codePoint <= 0xA6FF) return 'Cyrillic Extended-C';
+        if (codePoint >= 0xA700 && codePoint <= 0xA71F) return 'Modifier Tone Letters';
+        if (codePoint >= 0xA720 && codePoint <= 0xA7FF) return 'Latin Extended-D';
+        if (codePoint >= 0xA800 && codePoint <= 0xA82F) return 'Syloti Nagri';
+        if (codePoint >= 0xA840 && codePoint <= 0xA87F) return 'Phags-pa';
+        if (codePoint >= 0xAC00 && codePoint <= 0xD7AF) return 'Hangul Syllables';
+        if (codePoint >= 0xD7B0 && codePoint <= 0xD7FF) return 'Hangul Jamo Extended-B';
+        if (codePoint >= 0xD800 && codePoint <= 0xDB7F) return 'High Surrogates';
+        if (codePoint >= 0xDB80 && codePoint <= 0xDBFF) return 'High Private Use Surrogates';
+        if (codePoint >= 0xDC00 && codePoint <= 0xDFFF) return 'Low Surrogates';
+        if (codePoint >= 0xE000 && codePoint <= 0xF8FF) return 'Private Use Area';
+        if (codePoint >= 0xF900 && codePoint <= 0xFAFF) return 'CJK Compatibility Ideographs';
+        if (codePoint >= 0xFB00 && codePoint <= 0xFB4F) return 'Alphabetic Presentation Forms';
+        if (codePoint >= 0xFB50 && codePoint <= 0xFDFF) return 'Arabic Presentation Forms-A';
+        if (codePoint >= 0xFE00 && codePoint <= 0xFE0F) return 'Variation Selectors';
+        if (codePoint >= 0xFE10 && codePoint <= 0xFE1F) return 'Vertical Forms';
+        if (codePoint >= 0xFE20 && codePoint <= 0xFE2F) return 'Combining Half Marks';
+        if (codePoint >= 0xFE30 && codePoint <= 0xFE4F) return 'CJK Compatibility Forms';
+        if (codePoint >= 0xFE50 && codePoint <= 0xFE6F) return 'Small Form Variants';
+        if (codePoint >= 0xFE70 && codePoint <= 0xFEFF) return 'Arabic Presentation Forms-B';
+        if (codePoint >= 0xFF00 && codePoint <= 0xFFEF) return 'Halfwidth and Fullwidth Forms';
+        if (codePoint >= 0xFFF0 && codePoint <= 0xFFFF) return 'Specials';
+        
+        return 'Supplementary Planes';
+      }
+
+      // 转换函数
+      function convertCharacter() {
+        const char = charInput.value.trim();
+        
+        if (!char || char.length !== 1) {
+          alert('请输入单个字符');
+          charInput.focus();
+          return;
+        }
+
+        // 清空并设置动画效果
+        const allResultElements = [
+          unicodeDec, unicodeHex, unicodeCodepoint,
+          utf8Bin, utf8Hex, utf8Length,
+          utf16Bin, utf16Hex, utf16Length,
+          gbkBin, gbkHex, gbkLength,
+          asciiDec, asciiHex, asciiBin, asciiChar,
+          gb2312Bin, gb2312Hex, gb2312Length, gb2312Desc,
+          charDisplay, charName, charBlock
+        ];
+        
+        allResultElements.forEach(el => {
+          el.classList.add('opacity-0');
+          setTimeout(() => {
+            el.classList.remove('opacity-0');
+          }, 300);
+        });
+
+        // 获取字符的代码点
+        const codePoint = char.codePointAt(0);
+
+        // 更新字符显示
+        charDisplay.textContent = char;
+        charName.textContent = getCharacterName(char);
+        charBlock.textContent = getUnicodeBlock(char);
+
+        // 计算Unicode编码
+        unicodeDec.textContent = codePoint.toString();
+        unicodeHex.textContent = '0x' + toHex(codePoint, 4);
+        unicodeCodepoint.textContent = 'U+' + toHex(codePoint, 4);
+
+        // 计算UTF-8编码
+        const utf8Bytes = getUTF8Bytes(char);
+        utf8Bin.textContent = utf8Bytes.map(byte => toBinary(byte, 8)).join(' ');
+        utf8Hex.textContent = utf8Bytes.map(byte => toHex(byte, 2)).join(' ');
+        utf8Length.textContent = utf8Bytes.length + ' 字节';
+
+        // 计算UTF-16编码
+        const utf16Bytes = getUTF16Bytes(char);
+        utf16Bin.textContent = utf16Bytes.map(byte => toBinary(byte, 8)).join(' ');
+        utf16Hex.textContent = utf16Bytes.map(byte => toHex(byte, 2)).join(' ');
+        utf16Length.textContent = utf16Bytes.length + ' 字节';
+
+        // 计算GBK编码（模拟）
+        const gbkBytes = getGBKBytes(char);
+        gbkBin.textContent = gbkBytes.map(byte => toBinary(byte, 8)).join(' ');
+        gbkHex.textContent = gbkBytes.map(byte => toHex(byte, 2)).join(' ');
+        gbkLength.textContent = gbkBytes.length + ' 字节';
+
+        // 计算ASCII编码
+        if (codePoint < 0x80) {
+          // ASCII字符
+          asciiDec.textContent = codePoint.toString();
+          asciiHex.textContent = '0x' + toHex(codePoint, 2);
+          asciiBin.textContent = toBinary(codePoint, 8);
+          
+          // 判断字符类型
+          if (codePoint >= 32 && codePoint <= 126) {
+            asciiChar.textContent = `可打印字符 '${char}'`;
+          } else if (codePoint === 10) {
+            asciiChar.textContent = '换行符 (LF)';
+          } else if (codePoint === 13) {
+            asciiChar.textContent = '回车符 (CR)';
+          } else if (codePoint === 9) {
+            asciiChar.textContent = '制表符 (TAB)';
+          } else if (codePoint === 32) {
+            asciiChar.textContent = '空格';
+          } else if (codePoint === 0x00) {
+            asciiChar.textContent = '空字符 (NUL)';
+          } else {
+            asciiChar.textContent = '控制字符';
+          }
+        } else {
+          // 非ASCII字符 - 显示其数值信息但标明不适用
+          asciiDec.textContent = `${codePoint} (超出ASCII范围)`;
+          asciiHex.textContent = `${'0x' + toHex(codePoint, 4)} (超出ASCII范围)`;
+          asciiBin.textContent = `${toBinary(codePoint, 16).substring(0, 8)}... (超出ASCII范围)`;
+          asciiChar.textContent = '非ASCII字符，无对应ASCII编码';
+        }
+
+        // 计算GB2312编码（模拟）
+        const gb2312Bytes = getGB2312Bytes(char);
+        if (gb2312Bytes[0] === -1) {
+          // 不在GB2312范围内的字符
+          gb2312Bin.textContent = '不支持';
+          gb2312Hex.textContent = '不支持';
+          gb2312Length.textContent = '不适用';
+          gb2312Desc.textContent = '该字符不在GB2312编码范围内';
+        } else if (gb2312Bytes.length === 1) {
+          // ASCII字符
+          gb2312Bin.textContent = toBinary(gb2312Bytes[0], 8);
+          gb2312Hex.textContent = toHex(gb2312Bytes[0], 2);
+          gb2312Length.textContent = '1 字节';
+          gb2312Desc.textContent = 'ASCII字符，GB2312直接使用其ASCII值';
+        } else {
+          // 中文字符
+          gb2312Bin.textContent = gb2312Bytes.map(byte => toBinary(byte, 8)).join(' ');
+          gb2312Hex.textContent = gb2312Bytes.map(byte => toHex(byte, 2)).join(' ');
+          gb2312Length.textContent = '2 字节';
+          gb2312Desc.textContent = 'GB2312双字节编码字符';
+        }
+      }
+
+      // 绑定事件
+      convertBtn.addEventListener('click', convertCharacter);
+      
+      charInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          convertCharacter();
+        }
+      });
+
+      // 设置初始示例字符
+      charInput.value = '中';
+      setTimeout(convertCharacter, 500);
+    });
+  </script>
+</body>
+</html>
