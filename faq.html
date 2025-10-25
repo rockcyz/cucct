@@ -225,71 +225,71 @@
   }
 ];
         
-        function displayFAQs() {{
+        function displayFAQs() {
             const container = document.getElementById('faqContainer');
             container.innerHTML = qaData.map((item, index) => `
-                <div class="faq-item bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all" data-index="${{index}}">
-                    <button class="w-full p-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors" onclick="toggleFAQ(${{index}})">
+                <div class="faq-item bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all" data-index="${index}">
+                    <button class="w-full p-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors" onclick="toggleFAQ(${index})">
                         <div class="flex items-center flex-1">
-                            <span class="bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-bold px-3 py-1 rounded-lg mr-4 shrink-0">Q${{index + 1}}</span>
-                            <span class="text-lg font-semibold text-gray-900 qa-question">${{item.question}}</span>
+                            <span class="bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-bold px-3 py-1 rounded-lg mr-4 shrink-0">Q${index + 1}</span>
+                            <span class="text-lg font-semibold text-gray-900 qa-question">${item.question}</span>
                         </div>
                         <i class="fas fa-chevron-down faq-icon text-blue-500 ml-4 transition-transform"></i>
                     </button>
                     <div class="faq-content px-6">
-                        <div class="pb-6 text-gray-700 leading-relaxed qa-answer">${{item.answer}}</div>
+                        <div class="pb-6 text-gray-700 leading-relaxed qa-answer">${item.answer}</div>
                     </div>
                 </div>
             `).join('');
-        }}
+        }
         
-        function toggleFAQ(index) {{
-            const item = document.querySelector(`.faq-item[data-index="${{index}}"]`);
-            if (item) {{
-                document.querySelectorAll('.faq-item').forEach(i => {{
-                    if (i !== item && i.classList.contains('active')) {{
+        function toggleFAQ(index) {
+            const item = document.querySelector(`.faq-item[data-index="${index}"]`);
+            if (item) {
+                document.querySelectorAll('.faq-item').forEach(i => {
+                    if (i !== item && i.classList.contains('active')) {
                         i.classList.remove('active');
-                    }}
-                }});
+                    }
+                });
                 item.classList.toggle('active');
-            }}
-        }}
+            }
+        }
         
-        function setupSearch() {{
+        function setupSearch() {
             const searchInput = document.getElementById('searchInput');
-            searchInput.addEventListener('input', (e) => {{
+            searchInput.addEventListener('input', (e) => {
                 const searchTerm = e.target.value.toLowerCase().trim();
-                if (searchTerm === '') {{
-                    document.querySelectorAll('.faq-item').forEach(item => {{
+                if (searchTerm === '') {
+                    document.querySelectorAll('.faq-item').forEach(item => {
                         item.style.display = '';
-                    }});
+                    });
                     return;
-                }}
-                document.querySelectorAll('.faq-item').forEach((item, index) => {{
+                }
+                document.querySelectorAll('.faq-item').forEach((item, index) => {
                     const question = qaData[index].question.toLowerCase();
                     const answer = qaData[index].answer.toLowerCase();
                     const matches = question.includes(searchTerm) || answer.includes(searchTerm);
-                    if (matches) {{
+                    if (matches) {
                         item.style.display = '';
-                        if (!item.classList.contains('active')) {{
+                        if (!item.classList.contains('active')) {
                             item.classList.add('active');
-                        }}
-                    }} else {{
+                        }
+                    } else {
                         item.style.display = 'none';
-                    }}
-                }});
-            }});
-        }}
+                    }
+                });
+            });
+        }
         
         displayFAQs();
         setupSearch();
         
-        document.addEventListener('keydown', (e) => {{
-            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {{
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                 e.preventDefault();
                 document.getElementById('searchInput').focus();
-            }}
-        }});
+            }
+        });
     </script>
 </body>
 </html>
