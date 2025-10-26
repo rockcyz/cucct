@@ -570,6 +570,7 @@ document.getElementById('centerBtn')?.addEventListener('click', () => {
 // View toggle functionality
 let isTreeView = false;
 let treeRoot = null;
+let expandedNodes = new Set();
 
 function buildTreeData() {
     const rootId = "计算思维概论";
@@ -599,58 +600,110 @@ function buildTreeData() {
     return treeRoot;
 }
 
+function renderCollapsibleTree() {
+    const container = document.getElementById('graphContainer');
+    if (!container) return;
+    
+    // 隐藏SVG，显示树形结构
+    const svg = container.querySelector('svg');
+    if (svg) svg.style.display = 'none';
+    
+    // 检查是否已存在树形结构容器
+    let treeDiv = container.querySelector('.collapsible-tree');
+    if (treeDiv) {
+        treeDiv.remove();
+    }
+    
+    // 创建树形结构容器
+    treeDiv = document.createElement('div');
+    treeDiv.className = 'collapsible-tree';
+    treeDiv.style.cssText = 'padding: 20px; overflow-y: auto; height: 700px; background: linear-gradient(to bottom, #f8fafc, #ffffff); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;';
+    container.appendChild(treeDiv);
+    
+    function renderNode(node, depth = 0) {
+        const hasChildren = node.children && node.children.length > 0;
+        const isExpanded = expandedNodes.has(node.id);
+        
+        const nodeDiv = document.createElement('div');
+        nodeDiv.className = 'tree-node';
+        
+        // 不同深度的渐变背景色
+        const backgrounds = [
+            'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+            'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+            'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+            'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+            'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)'
+        ];
+        
+        nodeDiv.style.cssText = `
+            margin-left: ${depth * 24}px;
+            padding: 10px 14px;
+            margin-bottom: 4px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            background: ${backgrounds[Math.min(depth, backgrounds.length - 1)]};
+            color: white;
+            font-weight: ${depth <= 1 ? 'bold' : 'normal'};
+            font-size: ${Math.max(12, 15 - depth)}px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        `;
+        
+        nodeDiv.innerHTML = `
+            ${hasChildren ? `<i class="fas ${isExpanded ? 'fa-chevron-down' : 'fa-chevron-right'}" style="margin-right: 8px; font-size: 11px; width: 15px;"></i>` : 
+                           '<span style="margin-right: 23px;"></span>'}
+            <span>${node.id}</span>
+        `;
+        
+        nodeDiv.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (hasChildren) {
+                if (expandedNodes.has(node.id)) {
+                    expandedNodes.delete(node.id);
+                } else {
+                    expandedNodes.add(node.id);
+                }
+                renderCollapsibleTree();
+            }
+        });
+        
+        nodeDiv.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateX(3px)';
+            this.style.boxShadow = '0 4px 10px rgba(0,0,0,0.25)';
+        });
+        
+        nodeDiv.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateX(0)';
+            this.style.boxShadow = '0 2px 6px rgba(0,0,0,0.15)';
+        });
+        
+        treeDiv.appendChild(nodeDiv);
+        
+        if (hasChildren && isExpanded) {
+            node.children.forEach(child => {
+                renderNode(child, depth + 1);
+            });
+        }
+    }
+    
+    if (!treeRoot) buildTreeData();
+    if (treeRoot) {
+        if (expandedNodes.size === 0) {
+            expandedNodes.add(treeRoot.id); // 默认展开根节点
+        }
+        renderNode(treeRoot);
+    }
+}
+
 function switchToTreeView() {
     isTreeView = true;
     if (!treeRoot) buildTreeData();
     
-    simulation.stop();
-    
-    // 使用更合适的树状布局尺寸
-    const treeLayout = d3.tree()
-        .nodeSize([60, 150]);  // 垂直间距60，水平间距150
-    
-    const root = d3.hierarchy(treeRoot, d => d.children);
-    
-    // 计算树的尺寸
-    let maxDepth = 0;
-    root.each(d => { if (d.depth > maxDepth) maxDepth = d.depth; });
-    
-    treeLayout(root);
-    
-    const treeNodes = root.descendants();
-    const treeLinks = root.links();
-    
-    // 计算平移和缩放
-    const xExtent = d3.extent(treeNodes, d => d.x);
-    const yExtent = d3.extent(treeNodes, d => d.y);
-    
-    const treeWidth = xExtent[1] - xExtent[0];
-    const treeHeight = yExtent[1] - yExtent[0];
-    
-    const scale = Math.min((width - 100) / (treeWidth + 40), (height - 100) / (treeHeight + 40));
-    const offsetX = (width - treeWidth * scale) / 2 - xExtent[0] * scale;
-    const offsetY = (height - treeHeight * scale) / 2 - yExtent[0] * scale;
-    
-    knowledgeData.nodes.forEach(n => {
-        const treeNode = treeNodes.find(tn => tn.data.id === n.id);
-        if (treeNode) {
-            n.x = treeNode.y * scale + offsetX;
-            n.y = treeNode.x * scale + offsetY;
-        }
-    });
-    
-    link.data(treeLinks.map(l => ({
-        source: l.source.data,
-        target: l.target.data
-    })));
-    
-    // 完全停止力导向模拟
-    simulation.force("charge", null);
-    simulation.force("center", null);
-    simulation.force("link", null);
-    
-    // 重新渲染
-    simulation.tick();
+    renderCollapsibleTree();
     
     document.getElementById('viewToggleText').textContent = '切换到网络图';
 }
@@ -658,22 +711,43 @@ function switchToTreeView() {
 function switchToNetworkView() {
     isTreeView = false;
     
+    const container = document.getElementById('graphContainer');
+    if (container) {
+        // 移除树形结构
+        const treeDiv = container.querySelector('.collapsible-tree');
+        if (treeDiv) {
+            treeDiv.remove();
+        }
+        
+        // 显示SVG
+        const svg = container.querySelector('svg');
+        if (svg) {
+            svg.style.display = 'block';
+        }
+    }
+    
     // 移除所有节点的固定位置
     knowledgeData.nodes.forEach(d => { d.fx = null; d.fy = null; });
     
     // 重置视图位置
-    svg.transition()
-        .duration(750)
-        .call(d3.zoom().transform, d3.zoomIdentity);
-    
-    simulation
-        .force("link", d3.forceLink(knowledgeData.links).id(d => d.id).distance(100))
-        .force("charge", d3.forceManyBody().strength(-300))
-        .force("center", d3.forceCenter(width / 2, height / 2))
-        .alpha(1)
-        .restart();
-    
-    link.data(knowledgeData.links);
+    if (typeof svg !== 'undefined') {
+        svg.transition()
+            .duration(750)
+            .call(d3.zoom().transform, d3.zoomIdentity);
+        
+        if (typeof simulation !== 'undefined') {
+            simulation
+                .force("link", d3.forceLink(knowledgeData.links).id(d => d.id).distance(100))
+                .force("charge", d3.forceManyBody().strength(-300))
+                .force("center", d3.forceCenter(width / 2, height / 2))
+                .alpha(1)
+                .restart();
+            
+            if (typeof link !== 'undefined') {
+                link.data(knowledgeData.links);
+            }
+        }
+    }
     
     document.getElementById('viewToggleText').textContent = '切换到树状图';
 }

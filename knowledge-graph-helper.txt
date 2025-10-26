@@ -1,0 +1,30 @@
+                    return;
+                }
+                document.querySelectorAll('.faq-item').forEach((item, index) => {
+                    const question = qaData[index].question.toLowerCase();
+                    const answer = qaData[index].answer.toLowerCase();
+                    const matches = question.includes(searchTerm) || answer.includes(searchTerm);
+                    if (matches) {
+                        item.style.display = '';
+                        if (!item.classList.contains('active')) {
+                            item.classList.add('active');
+                        }
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+        
+        displayFAQs();
+        setupSearch();
+        
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+        });
+    </script>
+</body>
+</html>
