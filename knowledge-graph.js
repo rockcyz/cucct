@@ -1,9 +1,20 @@
 // Knowledge Graph Visualization with D3.js
 const knowledgeData = {
     nodes: [
-        {id: "计算思维概论", level: 0, color: "#6366f1", size: 25}
+        {id: "计算思维概论", level: 0, color: "#6366f1", size: 25},
+        {id: "第1章 信息的存储与表示", level: 1, color: "#8b5cf6", size: 18},
+        {id: "第2章 计算设备处理信息", level: 1, color: "#ec4899", size: 18},
+        {id: "第3章 数据间的逻辑关系", level: 1, color: "#f59e0b", size: 18},
+        {id: "第4章 用计算思维求解问题", level: 1, color: "#10b981", size: 18},
+        {id: "第5章 信息如何在互联网上传播", level: 1, color: "#ef4444", size: 18},
     ],
-    links: []
+    links: [
+        {source: "计算思维概论", target: "第1章 信息的存储与表示"},
+        {source: "计算思维概论", target: "第2章 计算设备处理信息"},
+        {source: "计算思维概论", target: "第3章 数据间的逻辑关系"},
+        {source: "计算思维概论", target: "第4章 用计算思维求解问题"},
+        {source: "计算思维概论", target: "第5章 信息如何在互联网上传播"},
+    ]
 };
 
 const width = document.getElementById('graphContainer').clientWidth;
