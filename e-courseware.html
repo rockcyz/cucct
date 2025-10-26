@@ -79,8 +79,8 @@
             container.appendChild(loadingDiv);
             try {
                 // Use relative path for GitHub Pages deployment
-                // Encode only the filename, not the entire path
-                const encodedFilename = encodeURI(filename).replace(/#/g, '%23');
+                // Encode the filename for proper URL handling
+                const encodedFilename = encodeURIComponent(filename);
                 // Use relative path starting with ./
                 const pdfPath = `./E-courseware/${encodedFilename}`;
                 console.log('Loading PDF from:', pdfPath);
@@ -106,7 +106,8 @@
                 console.error('PDF loading error:', e);
                 container.innerHTML = `<div class="text-white text-center p-8">
                     <p class="text-red-400 text-lg mb-4">加载失败</p>
-                    <p class="text-sm text-gray-300 mb-4">${e.message}</p>
+                    <p class="text-sm text-gray-300 mb-2">${e.message}</p>
+                    <p class="text-xs text-gray-400 mb-4">尝试访问: ${pdfPath}</p>
                     <button onclick="closeViewer()" class="control-btn">返回</button>
                 </div>`;
             }
