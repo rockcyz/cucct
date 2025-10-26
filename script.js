@@ -1013,3 +1013,118 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// RGB Color Palette Functionality
+function initRGBPalette() {
+    const palette = document.getElementById('rgbPalette');
+    if (!palette) return;
+    
+    // Generate 256 colors (16x16 grid) with full RGB spectrum
+    // We'll create a balanced representation of colors
+    let colorSwatches = [];
+    
+    // Generate colors
+    for (let r = 0; r < 16; r++) {
+        for (let g = 0; g < 16; g++) {
+            // Create a varied color distribution
+            const red = Math.floor(r * 17);
+            const green = Math.floor(g * 17);
+            const blue = Math.floor(((r + g) % 16) * 17);
+            
+            colorSwatches.push({
+                r: red,
+                g: green,
+                b: blue,
+                hex: rgbToHex(red, green, blue),
+                name: getColorName(red, green, blue)
+            });
+        }
+    }
+    
+    // Shuffle array for better visual distribution
+    colorSwatches = shuffleArray(colorSwatches);
+    
+    // Create color swatches
+    colorSwatches.forEach(color => {
+        const swatch = document.createElement('div');
+        swatch.className = 'color-swatch';
+        swatch.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
+        swatch.dataset.r = color.r;
+        swatch.dataset.g = color.g;
+        swatch.dataset.b = color.b;
+        swatch.dataset.hex = color.hex;
+        swatch.dataset.name = color.name;
+        
+        swatch.addEventListener('click', function() {
+            selectColor(color.r, color.g, color.b, color.hex, color.name);
+        });
+        
+        palette.appendChild(swatch);
+    });
+}
+
+function selectColor(r, g, b, hex, name) {
+    // Update color box
+    const colorBox = document.getElementById('selectedColorBox');
+    colorBox.style.backgroundColor = hex;
+    colorBox.innerHTML = '';
+    
+    // Update RGB value
+    document.getElementById('rgbValue').textContent = `(${r}, ${g}, ${b})`;
+    
+    // Update HEX value
+    document.getElementById('hexValue').textContent = hex.toUpperCase();
+    
+    // Update color name
+    document.getElementById('colorName').textContent = name;
+}
+
+function getColorName(r, g, b) {
+    const colors = [
+        { name: '黑色', r: 0, g: 0, b: 0, tolerance: 30 },
+        { name: '白色', r: 255, g: 255, b: 255, tolerance: 30 },
+        { name: '红色', r: 255, g: 0, b: 0, tolerance: 50 },
+        { name: '绿色', r: 0, g: 255, b: 0, tolerance: 50 },
+        { name: '蓝色', r: 0, g: 0, b: 255, tolerance: 50 },
+        { name: '黄色', r: 255, g: 255, b: 0, tolerance: 50 },
+        { name: '青色', r: 0, g: 255, b: 255, tolerance: 50 },
+        { name: '品红', r: 255, g: 0, b: 255, tolerance: 50 },
+        { name: '橙色', r: 255, g: 165, b: 0, tolerance: 50 },
+        { name: '紫色', r: 128, g: 0, b: 128, tolerance: 50 },
+        { name: '灰色', r: 128, g: 128, b: 128, tolerance: 50 },
+        { name: '棕色', r: 165, g: 42, b: 42, tolerance: 50 },
+        { name: '粉色', r: 255, g: 192, b: 203, tolerance: 50 },
+        { name: '天蓝', r: 135, g: 206, b: 235, tolerance: 50 }
+    ];
+    
+    let closestColor = colors[0];
+    let minDistance = Number.MAX_VALUE;
+    
+    colors.forEach(color => {
+        const distance = Math.sqrt(
+            Math.pow(r - color.r, 2) + 
+            Math.pow(g - color.g, 2) + 
+            Math.pow(b - color.b, 2)
+        );
+        if (distance < minDistance) {
+            minDistance = distance;
+            closestColor = color;
+        }
+    });
+    
+    return minDistance < closestColor.tolerance ? closestColor.name : `RGB(${r}, ${g}, ${b})`;
+}
+
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+// Initialize RGB palette when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initRGBPalette();
+});
