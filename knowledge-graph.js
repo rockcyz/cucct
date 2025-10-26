@@ -494,18 +494,30 @@ const knowledgeData = {
 const width = document.getElementById('graphContainer').clientWidth;
 const height = 700;
 
-const svg = d3.select("#graphContainer").append("svg").attr("width", width).attr("height", height);
+const svg = d3.select("#graphContainer").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .call(d3.zoom().scaleExtent([0.1, 4]).on("zoom", zoomed));
+
+const g = svg.append("g");
+
+let transform = d3.zoomIdentity;
 
 const simulation = d3.forceSimulation(knowledgeData.nodes)
     .force("link", d3.forceLink(knowledgeData.links).id(d => d.id).distance(100))
     .force("charge", d3.forceManyBody().strength(-300))
     .force("center", d3.forceCenter(width / 2, height / 2));
 
-const link = svg.append("g").selectAll("line").data(knowledgeData.links).join("line").attr("class", "link");
+const link = g.append("g").selectAll("line").data(knowledgeData.links).join("line").attr("class", "link");
 
-const node = svg.append("g").selectAll("circle").data(knowledgeData.nodes).join("circle").attr("class", "node").attr("r", d => d.size).attr("fill", d => d.color).call(d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended));
+const node = g.append("g").selectAll("circle").data(knowledgeData.nodes).join("circle").attr("class", "node").attr("r", d => d.size).attr("fill", d => d.color).call(d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended));
 
-const label = svg.append("g").selectAll("text").data(knowledgeData.nodes).join("text").attr("class", "node-label").text(d => d.id);
+const label = g.append("g").selectAll("text").data(knowledgeData.nodes).join("text").attr("class", "node-label").text(d => d.id);
+
+function zoomed(event) {
+    transform = event.transform;
+    g.attr("transform", transform);
+}
 
 simulation.on("tick", () => {
     link.attr("x1", d => d.source.x).attr("y1", d => d.source.y)
@@ -518,13 +530,13 @@ simulation.on("tick", () => {
 
 function dragstarted(event) {
     if (!event.active) simulation.alphaTarget(0.3).restart();
-    event.subject.fx = event.subject.x;
-    event.subject.fy = event.subject.y;
+    event.subject.fx = transform.invertX(event.x);
+    event.subject.fy = transform.invertY(event.y);
 }
 
 function dragged(event) {
-    event.subject.fx = event.x;
-    event.subject.fy = event.y;
+    event.subject.fx = transform.invertX(event.x);
+    event.subject.fy = transform.invertY(event.y);
 }
 
 function dragended(event) {
@@ -536,8 +548,21 @@ function dragended(event) {
 document.getElementById('resetBtn')?.addEventListener('click', () => {
     knowledgeData.nodes.forEach(d => { d.fx = null; d.fy = null; });
     simulation.alpha(1).restart();
+    
+    svg.transition()
+        .duration(750)
+        .call(d3.zoom().transform, d3.zoomIdentity);
 });
 
 document.getElementById('centerBtn')?.addEventListener('click', () => {
     simulation.force("center", d3.forceCenter(width / 2, height / 2)).restart();
+    
+    const bounds = g.node().getBBox();
+    const dx = bounds.x + bounds.width / 2 - width / 2;
+    const dy = bounds.y + bounds.height / 2 - height / 2;
+    const scale = Math.min(0.9, 0.9 * Math.min(width / bounds.width, height / bounds.height));
+    
+    svg.transition()
+        .duration(750)
+        .call(d3.zoom().transform, d3.zoomIdentity.translate(-dx, -dy).scale(scale));
 });
