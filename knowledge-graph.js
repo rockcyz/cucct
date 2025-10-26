@@ -605,19 +605,44 @@ function switchToTreeView() {
     
     simulation.stop();
     
-    const treeLayout = d3.tree().size([width - 40, height - 40]);
+    // 使用更合适的树状布局尺寸
+    const treeLayout = d3.tree()
+        .nodeSize([60, 150])  // 垂直间距60，水平间距150
+        .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
+    
     const root = d3.hierarchy(treeRoot, d => d.children);
     
+    // 计算树的尺寸
+    let maxDepth = 0;
+    root.each(d => { if (d.depth > maxDepth) maxDepth = d.depth; });
+    
     treeLayout(root);
+    
+    // 中心化树状图
+    const treeBounds = d3.hierarchy(treeRoot, d => d.children)
+        .eachBefore(d => {
+            d.x0 = d.x;
+            d.y0 = d.y;
+        });
     
     const treeNodes = root.descendants();
     const treeLinks = root.links();
     
+    // 计算平移和缩放
+    const treeWidth = Math.max(...treeNodes.map(d => d.x)) - Math.min(...treeNodes.map(d => d.x));
+    const treeHeight = Math.max(...treeNodes.map(d => d.y)) - Math.min(...treeNodes.map(d => d.y));
+    
+    const scale = Math.min((width - 100) / (treeWidth + 40), (height - 100) / (treeHeight + 40));
+    const offsetX = (width - treeWidth * scale) / 2 - Math.min(...treeNodes.map(d => d.x)) * scale;
+    const offsetY = (height - treeHeight * scale) / 2 - Math.min(...treeNodes.map(d => d.y)) * scale;
+    
     knowledgeData.nodes.forEach(n => {
         const treeNode = treeNodes.find(tn => tn.data.id === n.id);
         if (treeNode) {
-            n.x = treeNode.y;
-            n.y = treeNode.x;
+            n.x = treeNode.y * scale + offsetX;
+            n.y = treeNode.x * scale + offsetY;
+            n.fx = n.x;
+            n.fy = n.y;
         }
     });
     
@@ -626,14 +651,22 @@ function switchToTreeView() {
         target: l.target.data
     })));
     
-    simulation.force("charge", null).force("center", null);
-    simulation.alpha(1).restart();
+    // 完全停止力导向模拟
+    simulation.force("charge", null);
+    simulation.force("center", null);
+    simulation.force("link", null);
+    
+    // 重新渲染
+    simulation.tick();
     
     document.getElementById('viewToggleText').textContent = '切换到网络图';
 }
 
 function switchToNetworkView() {
     isTreeView = false;
+    
+    // 移除所有节点的固定位置
+    knowledgeData.nodes.forEach(d => { d.fx = null; d.fy = null; });
     
     simulation
         .force("link", d3.forceLink(knowledgeData.links).id(d => d.id).distance(100))
