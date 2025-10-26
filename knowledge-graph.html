@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知识图谱 | 计算思维概论</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        html { scroll-behavior: smooth; }
+        .node { cursor: pointer; }
+        .link { stroke: #999; stroke-opacity: 0.6; stroke-width: 2; }
+        .node-label { font-size: 11px; pointer-events: none; text-shadow: 0 1px 3px rgba(0,0,0,0.8); fill: white; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-white to-purple-50 min-h-screen">
+    <header class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <nav class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <a href="index.html" class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center hover:scale-105 transition-transform">
+                        <i class="fas fa-home text-white"></i>
+                    </a>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">知识图谱</h1>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-gray-600 hover:text-blue-600 transition-colors">返回首页</a>
+                    <a href="course-introduction.html" class="text-gray-600 hover:text-blue-600 transition-colors">课程介绍</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <section class="py-16 px-6">
+        <div class="container mx-auto text-center">
+            <div class="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                <i class="fas fa-project-diagram mr-2"></i>课程知识图谱
+            </div>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">计算思维课程知识图谱</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">可视化展示课程知识点的层级关系，帮助你全面理解计算思维课程体系</p>
+        </div>
+    </section>
+    <section class="px-6 mb-12">
+        <div class="container mx-auto bg-white rounded-2xl shadow-xl p-6">
+            <div class="flex items-center justify-between mb-4 flex-wrap gap-4">
+                <div class="flex items-center space-x-4">
+                    <button id="resetBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-redo mr-2"></i>重置视图
+                    </button>
+                    <button id="centerBtn" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                        <i class="fas fa-crosshairs mr-2"></i>居中显示
+                    </button>
+                </div>
+                <div class="text-sm text-gray-600">
+                    <i class="fas fa-info-circle mr-2"></i>拖拽节点移动，滚轮缩放，点击查看详情
+                </div>
+            </div>
+            <div id="graphContainer" class="border-2 border-gray-200 rounded-lg overflow-hidden bg-gray-900" style="height: 700px;"></div>
+        </div>
+    </section>
+    <section class="px-6 pb-20">
+        <div class="container mx-auto max-w-4xl">
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">使用说明</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <p class="text-gray-700"><i class="fas fa-circle text-blue-500 mr-2"></i><strong>节点层级：</strong>不同级别用不同大小和颜色表示</p>
+                        <p class="text-gray-700"><i class="fas fa-circle text-purple-500 mr-2"></i><strong>交互操作：</strong>拖拽节点调整位置</p>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700"><i class="fas fa-circle text-green-500 mr-2"></i><strong>缩放查看：</strong>使用鼠标滚轮缩放</p>
+                        <p class="text-gray-700"><i class="fas fa-circle text-orange-500 mr-2"></i><strong>布局算法：</strong>力导向布局自动优化</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-gray-900 text-white py-12 px-6">
+        <div class="container mx-auto text-center">
+            <p class="text-lg"><i class="fas fa-code"></i> 计算思维概论课程网站</p>
+            <p class="text-gray-400 mt-2">用心打造计算思维教育平台</p>
+            <p class="text-gray-500 text-sm mt-4">© 2025 中国传媒大学 | 计算机与网络空间安全学院</p>
+        </div>
+    </footer>
+    <script src="knowledge-graph.js"></script>
+</body>
+</html>
