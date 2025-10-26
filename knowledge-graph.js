@@ -607,8 +607,7 @@ function switchToTreeView() {
     
     // 使用更合适的树状布局尺寸
     const treeLayout = d3.tree()
-        .nodeSize([60, 150])  // 垂直间距60，水平间距150
-        .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
+        .nodeSize([60, 150]);  // 垂直间距60，水平间距150
     
     const root = d3.hierarchy(treeRoot, d => d.children);
     
@@ -618,31 +617,25 @@ function switchToTreeView() {
     
     treeLayout(root);
     
-    // 中心化树状图
-    const treeBounds = d3.hierarchy(treeRoot, d => d.children)
-        .eachBefore(d => {
-            d.x0 = d.x;
-            d.y0 = d.y;
-        });
-    
     const treeNodes = root.descendants();
     const treeLinks = root.links();
     
     // 计算平移和缩放
-    const treeWidth = Math.max(...treeNodes.map(d => d.x)) - Math.min(...treeNodes.map(d => d.x));
-    const treeHeight = Math.max(...treeNodes.map(d => d.y)) - Math.min(...treeNodes.map(d => d.y));
+    const xExtent = d3.extent(treeNodes, d => d.x);
+    const yExtent = d3.extent(treeNodes, d => d.y);
+    
+    const treeWidth = xExtent[1] - xExtent[0];
+    const treeHeight = yExtent[1] - yExtent[0];
     
     const scale = Math.min((width - 100) / (treeWidth + 40), (height - 100) / (treeHeight + 40));
-    const offsetX = (width - treeWidth * scale) / 2 - Math.min(...treeNodes.map(d => d.x)) * scale;
-    const offsetY = (height - treeHeight * scale) / 2 - Math.min(...treeNodes.map(d => d.y)) * scale;
+    const offsetX = (width - treeWidth * scale) / 2 - xExtent[0] * scale;
+    const offsetY = (height - treeHeight * scale) / 2 - yExtent[0] * scale;
     
     knowledgeData.nodes.forEach(n => {
         const treeNode = treeNodes.find(tn => tn.data.id === n.id);
         if (treeNode) {
             n.x = treeNode.y * scale + offsetX;
             n.y = treeNode.x * scale + offsetY;
-            n.fx = n.x;
-            n.fy = n.y;
         }
     });
     
@@ -667,6 +660,11 @@ function switchToNetworkView() {
     
     // 移除所有节点的固定位置
     knowledgeData.nodes.forEach(d => { d.fx = null; d.fy = null; });
+    
+    // 重置视图位置
+    svg.transition()
+        .duration(750)
+        .call(d3.zoom().transform, d3.zoomIdentity);
     
     simulation
         .force("link", d3.forceLink(knowledgeData.links).id(d => d.id).distance(100))
