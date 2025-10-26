@@ -491,3 +491,101 @@ body {
         font-size: 0.9rem;
     }
 }
+
+/* 进制选择器样式 */
+.base-selector {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.base-selector h3 {
+    color: #2d3748;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.radio-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 12px 24px;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    user-select: none;
+    font-weight: 500;
+}
+
+.radio-label:hover {
+    background: rgba(102, 126, 234, 0.2);
+    transform: translateY(-2px);
+}
+
+.radio-label input[type="radio"] {
+    display: none;
+}
+
+.radio-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #667eea;
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom {
+    background: #667eea;
+    border-color: #667eea;
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.radio-label input[type="radio"]:checked ~ .radio-label {
+    background: rgba(102, 126, 234, 0.3);
+}
+
+/* 输入区域样式 */
+.converter-input-area {
+    margin-bottom: 25px;
+}
+
+.converter-input-area .input-group {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .radio-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .radio-label {
+        justify-content: center;
+    }
+}

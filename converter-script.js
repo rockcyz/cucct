@@ -7,11 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const tabContents = document.querySelectorAll('.tab-content');
     
     // 转换器元素
-    const decimalInput = document.getElementById('decimalInput');
-    const binaryInput = document.getElementById('binaryInput');
-    const hexInput = document.getElementById('hexInput');
+    const inputNumber = document.getElementById('inputNumber');
+    const baseRadios = document.querySelectorAll('input[name="base"]');
     const convertBtn = document.getElementById('convertBtn');
     const clearConverterBtn = document.getElementById('clearConverterBtn');
+    const inputGroup = document.getElementById('decimalGroup');
     
     // 算术运算元素
     const arithmeticBase = document.getElementById('arithmeticBase');
@@ -92,10 +92,47 @@ document.addEventListener('DOMContentLoaded', function() {
         // 清空按钮
         clearConverterBtn.addEventListener('click', clearConverter);
         
-        // 输入框变化时自动转换
-        [decimalInput, binaryInput, hexInput].forEach(input => {
-            input.addEventListener('input', debounce(performConversion, 300));
+        // 单选框变化时更新输入框提示
+        baseRadios.forEach(radio => {
+            radio.addEventListener('change', updateInputPlaceholder);
         });
+        
+        // 输入框回车键触发转换
+        inputNumber.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performConversion();
+            }
+        });
+    }
+    
+    // 更新输入框提示
+    function updateInputPlaceholder() {
+        const selectedBase = document.querySelector('input[name="base"]:checked').value;
+        const label = inputGroup.querySelector('label');
+        const input = inputGroup.querySelector('input');
+        const info = inputGroup.querySelector('.input-info');
+        
+        switch(selectedBase) {
+            case 'decimal':
+                label.innerHTML = '<i class="fas fa-10"></i> 请输入十进制数字';
+                input.placeholder = '例如: 255';
+                info.textContent = '基数为10，使用数字0-9';
+                break;
+            case 'binary':
+                label.innerHTML = '<i class="fas fa-2"></i> 请输入二进制数字';
+                input.placeholder = '例如: 11111111';
+                info.textContent = '基数为2，使用数字0-1';
+                break;
+            case 'hex':
+                label.innerHTML = '<i class="fas fa-16"></i> 请输入十六进制数字';
+                input.placeholder = '例如: FF';
+                info.textContent = '基数为16，使用数字0-9和字母A-F';
+                break;
+        }
+        
+        // 清空输入框和结果
+        input.value = '';
+        clearResults();
     }
     
     // 算术运算功能
@@ -129,63 +166,55 @@ document.addEventListener('DOMContentLoaded', function() {
     function performConversion() {
         console.log('执行进制转换...');
         
+        const inputValue = inputNumber.value.trim();
+        if (!inputValue) {
+            showError('请输入数字');
+            return;
+        }
+        
+        const selectedBase = document.querySelector('input[name="base"]:checked').value;
         let decimalValue = null;
         let binaryValue = null;
         let hexValue = null;
         
-        // 检查哪个输入框有值
-        if (decimalInput.value.trim()) {
-            try {
-                decimalValue = parseInt(decimalInput.value.trim(), 10);
-                if (isNaN(decimalValue)) throw new Error('无效的十进制数字');
-                
-                binaryValue = decimalValue.toString(2);
-                hexValue = decimalValue.toString(16).toUpperCase();
-                
-                console.log(`从十进制转换: ${decimalValue} -> 二进制: ${binaryValue}, 十六进制: ${hexValue}`);
-            } catch (error) {
-                showError('无效的十进制数字');
-                return;
+        try {
+            switch(selectedBase) {
+                case 'decimal':
+                    decimalValue = parseInt(inputValue, 10);
+                    if (isNaN(decimalValue)) throw new Error('无效的十进制数字');
+                    binaryValue = decimalValue.toString(2);
+                    hexValue = decimalValue.toString(16).toUpperCase();
+                    console.log(`从十进制转换: ${decimalValue} -> 二进制: ${binaryValue}, 十六进制: ${hexValue}`);
+                    break;
+                    
+                case 'binary':
+                    if (!/^[01]+$/.test(inputValue)) {
+                        throw new Error('无效的二进制数字，只能包含0和1');
+                    }
+                    decimalValue = parseInt(inputValue, 2);
+                    binaryValue = inputValue;
+                    hexValue = decimalValue.toString(16).toUpperCase();
+                    console.log(`从二进制转换: ${binaryValue} -> 十进制: ${decimalValue}, 十六进制: ${hexValue}`);
+                    break;
+                    
+                case 'hex':
+                    if (!/^[0-9A-Fa-f]+$/.test(inputValue)) {
+                        throw new Error('无效的十六进制数字，只能包含0-9和A-F');
+                    }
+                    decimalValue = parseInt(inputValue, 16);
+                    binaryValue = decimalValue.toString(2);
+                    hexValue = inputValue.toUpperCase();
+                    console.log(`从十六进制转换: ${hexValue} -> 十进制: ${decimalValue}, 二进制: ${binaryValue}`);
+                    break;
             }
-        } else if (binaryInput.value.trim()) {
-            try {
-                // 验证二进制格式
-                if (!/^[01]+$/.test(binaryInput.value.trim())) {
-                    throw new Error('无效的二进制数字');
-                }
-                
-                decimalValue = parseInt(binaryInput.value.trim(), 2);
-                binaryValue = binaryInput.value.trim();
-                hexValue = decimalValue.toString(16).toUpperCase();
-                
-                console.log(`从二进制转换: ${binaryValue} -> 十进制: ${decimalValue}, 十六进制: ${hexValue}`);
-            } catch (error) {
-                showError('无效的二进制数字');
-                return;
-            }
-        } else if (hexInput.value.trim()) {
-            try {
-                // 验证十六进制格式
-                if (!/^[0-9A-Fa-f]+$/.test(hexInput.value.trim())) {
-                    throw new Error('无效的十六进制数字');
-                }
-                
-                decimalValue = parseInt(hexInput.value.trim(), 16);
-                binaryValue = decimalValue.toString(2);
-                hexValue = hexInput.value.trim().toUpperCase();
-                
-                console.log(`从十六进制转换: ${hexValue} -> 十进制: ${decimalValue}, 二进制: ${binaryValue}`);
-            } catch (error) {
-                showError('无效的十六进制数字');
-                return;
-            }
-        } else {
+            
+            // 更新结果显示
+            updateConversionResults(decimalValue, binaryValue, hexValue);
+            
+        } catch (error) {
+            showError(error.message);
             clearResults();
-            return;
         }
-        
-        // 更新结果显示
-        updateConversionResults(decimalValue, binaryValue, hexValue);
     }
     
     // 更新转换结果
@@ -205,9 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 清空转换器
     function clearConverter() {
-        decimalInput.value = '';
-        binaryInput.value = '';
-        hexInput.value = '';
+        inputNumber.value = '';
         clearResults();
         console.log('转换器已清空');
     }

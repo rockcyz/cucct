@@ -12,9 +12,9 @@
         <!-- Header -->
         <header class="header">
             <div class="header-content">
-                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
                     <div style="flex: 1;">
-                        <h1 class="title">
+                        <h1 class="title" style="display: flex; align-items: center; gap: 15px;">
                             <div class="course-badge">
                                 <span class="course-title">计算思维</span>
                                 <span class="course-subtitle">Computational Thinking</span>
@@ -24,7 +24,7 @@
                         </h1>
                         <p class="subtitle">支持十进制、二进制、十六进制转换及运算</p>
                     </div>
-                    <a href="index.html" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); transition: all 0.3s ease; white-space: nowrap;">
+                    <a href="index.html" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); transition: all 0.3s ease; white-space: nowrap; margin-top: 8px;">
                         <i class="fas fa-home"></i> 返回主页
                     </a>
                 </div>
@@ -52,35 +52,37 @@
             <div class="converter-section">
                 <h2><i class="fas fa-exchange-alt"></i> 进制转换器</h2>
                 
-                <div class="converter-grid">
-                    <!-- Decimal Input -->
-                    <div class="converter-group">
-                        <label for="decimalInput">
-                            <i class="fas fa-10"></i>
+                <!-- 进制选择 -->
+                <div class="base-selector">
+                    <h3>请选择要输入的进制：</h3>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="base" value="decimal" checked>
+                            <span class="radio-custom"></span>
                             十进制 (Decimal)
                         </label>
-                        <input type="text" id="decimalInput" placeholder="输入十进制数字" class="number-input">
-                        <div class="input-info">基数为10，使用数字0-9</div>
-                    </div>
-
-                    <!-- Binary Input -->
-                    <div class="converter-group">
-                        <label for="binaryInput">
-                            <i class="fas fa-2"></i>
+                        <label class="radio-label">
+                            <input type="radio" name="base" value="binary">
+                            <span class="radio-custom"></span>
                             二进制 (Binary)
                         </label>
-                        <input type="text" id="binaryInput" placeholder="输入二进制数字" class="number-input">
-                        <div class="input-info">基数为2，使用数字0-1</div>
-                    </div>
-
-                    <!-- Hexadecimal Input -->
-                    <div class="converter-group">
-                        <label for="hexInput">
-                            <i class="fas fa-16"></i>
+                        <label class="radio-label">
+                            <input type="radio" name="base" value="hex">
+                            <span class="radio-custom"></span>
                             十六进制 (Hexadecimal)
                         </label>
-                        <input type="text" id="hexInput" placeholder="输入十六进制数字" class="number-input">
-                        <div class="input-info">基数为16，使用数字0-9和字母A-F</div>
+                    </div>
+                </div>
+                
+                <!-- 输入区域 -->
+                <div class="converter-input-area">
+                    <div class="input-group" id="decimalGroup">
+                        <label for="inputNumber">
+                            <i class="fas fa-10"></i>
+                            请输入十进制数字
+                        </label>
+                        <input type="text" id="inputNumber" placeholder="例如: 255" class="number-input">
+                        <div class="input-info">基数为10，使用数字0-9</div>
                     </div>
                 </div>
 
@@ -265,8 +267,11 @@
         </div>
 
         <!-- Footer -->
-        <footer class="footer">
-            <p>&copy; 2025 CUC计算思维概论 - 数值转换工具</p>
+        <footer class="bg-white shadow-inner py-6 px-4 mt-8" style="background: white; box-shadow: inset 0 2px 4px rgba(0,0,0,.1); padding: 1.5rem 1rem; margin-top: 2rem; text-align: center;">
+            <div style="max-width: 1200px; margin: 0 auto; color: #6B7280; font-size: 0.875rem;">
+                <p>数值转换工具 - 支持十进制、二进制、十六进制转换及运算</p>
+                <p style="margin-top: 0.5rem;">© 2025中国传媒大学计算机 计算思维通识教育</p>
+            </div>
         </footer>
     </div>
 
