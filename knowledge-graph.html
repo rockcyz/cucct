@@ -44,7 +44,10 @@
     <section class="px-6 mb-12">
         <div class="container mx-auto bg-white rounded-2xl shadow-xl p-6">
             <div class="flex items-center justify-between mb-4 flex-wrap gap-4">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 flex-wrap">
+                    <button id="viewToggleBtn" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                        <i class="fas fa-sitemap mr-2"></i><span id="viewToggleText">切换到树状图</span>
+                    </button>
                     <button id="resetBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                         <i class="fas fa-redo mr-2"></i>重置视图
                     </button>

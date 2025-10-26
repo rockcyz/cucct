@@ -566,3 +566,91 @@ document.getElementById('centerBtn')?.addEventListener('click', () => {
         .duration(750)
         .call(d3.zoom().transform, d3.zoomIdentity.translate(-dx, -dy).scale(scale));
 });
+
+// View toggle functionality
+let isTreeView = false;
+let treeRoot = null;
+
+function buildTreeData() {
+    const rootId = "计算思维概论";
+    const nodeMap = new Map(knowledgeData.nodes.map(n => [n.id, n]));
+    const childrenMap = new Map();
+    
+    knowledgeData.links.forEach(link => {
+        if (!childrenMap.has(link.source.id || link.source)) {
+            childrenMap.set(link.source.id || link.source, []);
+        }
+        childrenMap.get(link.source.id || link.source).push(link.target.id || link.target);
+    });
+    
+    function buildNode(id, depth = 0) {
+        const node = nodeMap.get(id);
+        const result = { ...node, depth, children: [] };
+        
+        const children = childrenMap.get(id) || [];
+        children.forEach(childId => {
+            result.children.push(buildNode(childId, depth + 1));
+        });
+        
+        return result;
+    }
+    
+    treeRoot = buildNode(rootId);
+    return treeRoot;
+}
+
+function switchToTreeView() {
+    isTreeView = true;
+    if (!treeRoot) buildTreeData();
+    
+    simulation.stop();
+    
+    const treeLayout = d3.tree().size([width - 40, height - 40]);
+    const root = d3.hierarchy(treeRoot, d => d.children);
+    
+    treeLayout(root);
+    
+    const treeNodes = root.descendants();
+    const treeLinks = root.links();
+    
+    knowledgeData.nodes.forEach(n => {
+        const treeNode = treeNodes.find(tn => tn.data.id === n.id);
+        if (treeNode) {
+            n.x = treeNode.y;
+            n.y = treeNode.x;
+        }
+    });
+    
+    link.data(treeLinks.map(l => ({
+        source: l.source.data,
+        target: l.target.data
+    })));
+    
+    simulation.force("charge", null).force("center", null);
+    simulation.alpha(1).restart();
+    
+    document.getElementById('viewToggleText').textContent = '切换到网络图';
+}
+
+function switchToNetworkView() {
+    isTreeView = false;
+    
+    simulation
+        .force("link", d3.forceLink(knowledgeData.links).id(d => d.id).distance(100))
+        .force("charge", d3.forceManyBody().strength(-300))
+        .force("center", d3.forceCenter(width / 2, height / 2))
+        .alpha(1)
+        .restart();
+    
+    link.data(knowledgeData.links);
+    
+    document.getElementById('viewToggleText').textContent = '切换到树状图';
+}
+
+document.getElementById('viewToggleBtn')?.addEventListener('click', () => {
+    if (isTreeView) {
+        switchToNetworkView();
+    } else {
+        switchToTreeView();
+    }
+});
