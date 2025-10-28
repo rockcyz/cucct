@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>encoding-japanese 测试</title>
+</head>
+<body>
+    <h1>encoding-japanese 库测试</h1>
+    <div id="result"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/encoding-japanese@1.0.30/lib/encoding.min.js"></script>
+    <script>
+        console.log("开始测试encoding-japanese");
+        console.log("typeof Encoding:", typeof Encoding);
+        
+        if (typeof Encoding !== "undefined") {
+            console.log("Encoding对象:", Encoding);
+            try {
+                const result = Encoding.convert("中", "GBK");
+                console.log("编码结果:", result);
+                console.log("结果类型:", typeof result);
+                console.log("结果长度:", result.length);
+                console.log("转换为数组:", Array.from(result));
+                document.getElementById("result").innerHTML = "成功! 编码结果: " + Array.from(result);
+            } catch (e) {
+                console.error("编码失败:", e);
+                document.getElementById("result").innerHTML = "编码失败: " + e.message;
+            }
+        } else {
+            console.log("Encoding未定义");
+            document.getElementById("result").innerHTML = "Encoding未定义";
+        }
+    </script>
+</body>
+</html>

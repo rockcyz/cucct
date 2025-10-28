@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>iconv-lite-umd 测试</title>
+</head>
+<body>
+    <h1>iconv-lite-umd 库测试</h1>
+    <div id="result"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/iconv-lite-umd/dist/iconv-lite-umd.min.js"></script>
+    <script>
+        console.log("开始测试iconv-lite-umd");
+        console.log("typeof iconvLite:", typeof iconvLite);
+        console.log("typeof iconv:", typeof iconv);
+        
+        if (typeof iconvLite !== "undefined") {
+            console.log("iconvLite对象:", iconvLite);
+            try {
+                const result = iconvLite.encode("中", "gbk");
+                console.log("编码结果:", result);
+                console.log("结果类型:", typeof result);
+                console.log("结果长度:", result.length);
+                console.log("转换为数组:", Array.from(result));
+                document.getElementById("result").innerHTML = "成功! 编码结果: " + Array.from(result);
+            } catch (e) {
+                console.error("编码失败:", e);
+                document.getElementById("result").innerHTML = "编码失败: " + e.message;
+            }
+        } else {
+            console.log("iconvLite未定义");
+            document.getElementById("result").innerHTML = "iconvLite未定义";
+        }
+    </script>
+</body>
+</html>
