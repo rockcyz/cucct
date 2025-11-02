@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -141,10 +141,10 @@
                 </div>
                 <p class="text-gray-600 mb-4 flex-grow">提供一系列在线实验辅助工具，帮助学生更好地理解和掌握计算思维的核心概念。</p>
                 <ul class="text-sm text-gray-600 mb-6 space-y-2">
+                    <li>✓ 实验平台入门指南</li>
                     <li>✓ 图像编码工具</li>
                     <li>✓ 字符编码工具</li>
                     <li>✓ 数值转换工具</li>
-                    <li>✓ 更多工具开发中</li>
                 </ul>
                 <button onclick="document.getElementById('lab-tools').scrollIntoView({behavior: 'smooth'})" class="bg-gradient-to-r from-red-500 to-pink-500 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 w-full">
                     查看工具 →
@@ -200,14 +200,34 @@
                 <p class="text-xl text-gray-600">通过互动式实验工具，深入理解计算思维的核心概念</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- TRAE入门手册 -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all">
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-400 to-red-500 rounded-2xl mb-4">
+                            <i class="fas fa-rocket text-white text-3xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-900 mb-2">实验平台入门</h4>
+                        <p class="text-gray-600">TRAE零基础快速上手指南</p>
+                    </div>
+                    <ul class="text-sm text-gray-600 mb-6 space-y-2">
+                        <li>✓ 10分钟快速体验</li>
+                        <li>✓ AI协作功能详解</li>
+                        <li>✓ 常见问题解答</li>
+                        <li>✓ 完整操作教程</li>
+                    </ul>
+                    <a href="trae-introduction.html" class="block w-full bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center min-h-[48px] flex items-center justify-center">
+                        查看手册 →
+                    </a>
+                </div>
+
                 <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all">
                     <div class="text-center mb-6">
                         <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl mb-4">
                             <i class="fas fa-image text-white text-3xl"></i>
                         </div>
                         <h4 class="text-2xl font-bold text-gray-900 mb-2">图像编码</h4>
-                        <p class="text-gray-600">探索数字图像在计算机中的表示方式</p>
+                        <p class="text-gray-600">探索数字图像的表示方式</p>
                     </div>
                     <ul class="text-sm text-gray-600 mb-6 space-y-2">
                         <li>✓ RGB像素编码查看</li>
@@ -215,7 +235,7 @@
                         <li>✓ 十六进制数值串生成图像</li>
                         <li>✓ 实时颜色信息显示</li>
                     </ul>
-                    <a href="image_encoding.html" class="block w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center">
+                    <a href="image_encoding.html" class="block w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center min-h-[48px] flex items-center justify-center">
                         进入工具 →
                     </a>
                 </div>
@@ -231,10 +251,10 @@
                     <ul class="text-sm text-gray-600 mb-6 space-y-2">
                         <li>✓ Unicode编码查看</li>
                         <li>✓ UTF-8/UTF-16编码转换</li>
-                        <li>✓ GBK/GB2312编码支持</li>
+                        <li>✓ ASCII编码支持</li>
                         <li>✓ 字符详细信息显示</li>
                     </ul>
-                    <a href="character_encoding.html" class="block w-full bg-gradient-to-r from-green-600 to-teal-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center">
+                    <a href="character_encoding.html" class="block w-full bg-gradient-to-r from-green-600 to-teal-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center min-h-[48px] flex items-center justify-center">
                         进入工具 →
                     </a>
                 </div>
@@ -253,7 +273,7 @@
                         <li>✓ 逻辑运算（AND/OR/XOR/NOT）</li>
                         <li>✓ 实时结果显示</li>
                     </ul>
-                    <a href="number_converter.html" class="block w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center">
+                    <a href="number_converter.html" class="block w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center min-h-[48px] flex items-center justify-center">
                         进入工具 →
                     </a>
                 </div>

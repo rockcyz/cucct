@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRAE 入门手册 | 计算思维概论</title>
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome 6（与 index.html 保持一致） -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#36CBCB',
+            accent: '#FF5252',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-white to-purple-50 min-h-screen text-gray-700 font-sans">
+  <!-- Header（与首页风格统一） -->
+  <header class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+    <div class="container mx-auto px-6 py-4">
+      <nav class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+            <span class="text-white font-bold text-lg">💡</span>
+          </div>
+          <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            计算思维概论
+          </a>
+        </div>
+        <div class="flex items-center space-x-3 md:space-x-6">
+          <div class="hidden md:flex items-center space-x-6">
+            <a href="index.html#courses" class="text-gray-600 hover:text-blue-600 transition-colors">课程内容</a>
+            <a href="index.html#lab-tools" class="text-gray-600 hover:text-blue-600 transition-colors">实验工具</a>
+            <a href="faq.html" class="text-gray-600 hover:text-blue-600 transition-colors">常见问题</a>
+            <a href="knowledge-graph.html" class="text-gray-600 hover:text-blue-600 transition-colors">知识图谱</a>
+          </div>
+          <a href="index.html" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-sm md:text-base">
+            <i class="fas fa-home mr-1 md:mr-2"></i><span class="hidden sm:inline">返回主页</span><span class="sm:hidden">主页</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page Hero -->
+  <section class="py-12">
+    <div class="container mx-auto px-6 max-w-5xl">
+      <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8">
+        <div class="text-center">
+          <div class="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+            实验工具 · TRAE入门手册
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-3">
+            <i class="fas fa-rocket text-blue-600"></i>
+            TRAE 入门手册（零基础版）
+          </h1>
+          <p class="text-xl text-gray-600 mb-2">面向第一次接触编程的用户：用对话与自动建议，10–30 分钟完成你的第一个项目原型</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-6 pb-16 max-w-5xl">
+    
+    <!-- 使用人群 -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-blue-500 rounded-lg flex items-center justify-center shrink-0">
+          <span class="text-white text-xl">👥</span>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">适用人群</h3>
+          <p class="text-gray-700 mb-2">完全没有计算机基础的用户、第一次使用 IDE/编程工具的用户</p>
+          <div class="bg-blue-50 rounded-lg p-4 mt-4">
+            <p class="text-sm text-blue-800">
+              <strong>你将学到：</strong>准备环境、安装与启动、打开或创建项目、与 AI 协作（问答、行内提示、代码片段生成）、预览和常见操作
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1. TRAE是什么 -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-xl">1</span>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900">TRAE 是什么</h2>
+      </div>
+      <p class="text-lg text-gray-700 mb-4">
+        TRAE 是与 AI 深度集成的现代 IDE（集成开发环境）。你可以像聊天一样描述需求，AI 会在编辑器中给出实时代码建议、生成代码片段，甚至从 0 到 1创建项目所需文件。它也支持传统 IDE 的功能，如项目管理、插件管理、源代码管理（Git）等。
+      </p>
+      <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-6 mt-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">你会用到的几个关键词：</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-white rounded-lg p-4 shadow-sm">
+            <h4 class="font-semibold text-gray-900 mb-2"><i class="fas fa-comments text-blue-600 mr-2"></i>AI 助手</h4>
+            <p class="text-sm text-gray-700">和你对话，解释代码、修复错误、回答问题</p>
+          </div>
+          <div class="bg-white rounded-lg p-4 shadow-sm">
+            <h4 class="font-semibold text-gray-900 mb-2"><i class="fas fa-lightbulb text-yellow-600 mr-2"></i>行内建议（CUE）</h4>
+            <p class="text-sm text-gray-700">在你输入时，AI 给出实时代码建议，你可以选择接受或忽略</p>
+          </div>
+          <div class="bg-white rounded-lg p-4 shadow-sm">
+            <h4 class="font-semibold text-gray-900 mb-2"><i class="fas fa-code text-purple-600 mr-2"></i>代码片段生成</h4>
+            <p class="text-sm text-gray-700">用自然语言描述需求，自动生成代码段并插入到文件</p>
+          </div>
+          <div class="bg-white rounded-lg p-4 shadow-sm">
+            <h4 class="font-semibold text-gray-900 mb-2"><i class="fas fa-robot text-indigo-600 mr-2"></i>智能体</h4>
+            <p class="text-sm text-gray-700">跨文件、项目级地自动编写或修改代码</p>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+        <p class="text-sm text-yellow-900">
+          <strong>📖 术语解释（通俗版）：</strong><br>
+          • <strong>IDE：</strong>像功能更强的记事本，用来写和管理代码<br>
+          • <strong>AI 助手：</strong>可聊天的"智能同伴"，能解释、修改、补全代码<br>
+          • <strong>行内建议（CUE）：</strong>打字时自动出现的代码建议，类似输入法联想<br>
+          • <strong>代码片段：</strong>一段可直接使用的代码，像现成的积木<br>
+          • <strong>智能体：</strong>跨文件、项目级地自动写/改代码的能力
+        </p>
+      </div>
+    </div>
+
+    <!-- 2. 使用前准备 -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-xl">2</span>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900">使用前准备</h2>
+      </div>
+      <div class="space-y-4">
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6">
+          <h3 class="font-semibold text-gray-900 mb-3 flex items-center">
+            <i class="fas fa-check-circle text-green-600 mr-2"></i>需要准备的
+          </h3>
+          <ul class="space-y-2 text-gray-700">
+            <li class="flex items-start">
+              <i class="fas fa-laptop text-blue-600 mr-2 mt-1"></i>
+              <span><strong>操作系统：</strong>Windows 10/11 或 macOS 10.15 及以上</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-mouse-pointer text-blue-600 mr-2 mt-1"></i>
+              <span><strong>基本电脑技能：</strong>会使用键盘鼠标、会打开/保存文件即可</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-wifi text-blue-600 mr-2 mt-1"></i>
+              <span><strong>网络：</strong>建议保持稳定网络以使用 AI 功能</span>
+            </li>
+          </ul>
+        </div>
+        <div class="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
+          <p class="text-sm text-green-900">
+            <strong>✅ 提示：</strong>你不需要懂编程术语，本手册会用通俗语言描述每一步。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 安装与启动 -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-xl">3</span>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900">安装与启动</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-blue-50 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <span class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold">1</span>
+            下载并安装
+          </h3>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start">
+              <i class="fas fa-download text-blue-600 mr-2 mt-1"></i>
+              <span>访问 TRAE 官方网站，下载与你的系统匹配的安装包</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-blue-600 mr-2 mt-1"></i>
+              <span>双击安装包，按提示完成安装</span>
+            </li>
+          </ul>
+        </div>
+        <div class="bg-purple-50 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <span class="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold">2</span>
+            启动 TRAE
+          </h3>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start">
+              <i class="fas fa-power-off text-purple-600 mr-2 mt-1"></i>
+              <span>点击桌面或开始菜单中的 TRAE 图标启动</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-desktop text-purple-600 mr-2 mt-1"></i>
+              <span>首次启动会看到主界面：左侧是项目/文件区，中间是代码编辑区</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. 快速上手 -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-xl">4</span>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900">快速上手（10 分钟体验）</h2>
+      </div>
+      <p class="text-lg text-gray-700 mb-6">下面是一条最简单的路径，帮助你立刻体验 AI 协作：</p>
+      <div class="space-y-6">
+        <div class="border-l-4 border-blue-500 pl-6 py-4 bg-blue-50 rounded-r-lg">
+          <div class="flex items-center mb-2">
+            <span class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold">1</span>
+            <h3 class="text-xl font-semibold text-gray-900">打开一个空文件夹或已有项目</h3>
+          </div>
+          <ul class="space-y-2 text-gray-700 ml-11">
+            <li class="flex items-start">
+              <i class="fas fa-folder-open text-blue-600 mr-2 mt-1"></i>
+              <span>如果你已有项目，选择<strong>"打开文件夹"</strong>，定位到项目所在目录</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-plus-circle text-blue-600 mr-2 mt-1"></i>
+              <span>如果你是零基础，先新建一个空文件夹，例如<strong>"我的第一个项目"</strong>，然后用 TRAE 打开它</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="border-l-4 border-green-500 pl-6 py-4 bg-green-50 rounded-r-lg">
+          <div class="flex items-center mb-2">
+            <span class="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold">2</span>
+            <h3 class="text-xl font-semibold text-gray-900">与 AI 助手对话（侧边或行内）</h3>
+          </div>
+          <ul class="space-y-2 text-gray-700 ml-11">
+            <li class="flex items-start">
+              <i class="fas fa-comments text-green-600 mr-2 mt-1"></i>
+              <span>在编辑器或侧边对话框中，用自然语言描述你的目标</span>
+            </li>
+            <li class="bg-white rounded-lg p-3 mt-2">
+              <code class="text-sm text-green-800 bg-green-50 px-3 py-1 rounded">
+                "帮我创建一个显示'Hello, TRAE'的网页。"
+              </code>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-magic text-green-600 mr-2 mt-1"></i>
+              <span>AI 会解释要做什么，并生成或修改相应的文件</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="border-l-4 border-purple-500 pl-6 py-4 bg-purple-50 rounded-r-lg">
+          <div class="flex items-center mb-2">
+            <span class="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold">3</span>
+            <h3 class="text-xl font-semibold text-gray-900">接受/调整行内建议（CUE）</h3>
+          </div>
+          <ul class="space-y-2 text-gray-700 ml-11">
+            <li class="flex items-start">
+              <i class="fas fa-lightbulb text-purple-600 mr-2 mt-1"></i>
+              <span>当你在文件中输入时，编辑器可能出现灰色或半透明的建议文本</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-double text-purple-600 mr-2 mt-1"></i>
+              <span>如果符合预期，选择接受；不合适就继续输入或让 AI 修改</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="border-l-4 border-orange-500 pl-6 py-4 bg-orange-50 rounded-r-lg">
+          <div class="flex items-center mb-2">
+            <span class="w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold">4</span>
+            <h3 class="text-xl font-semibold text-gray-900">生成代码片段</h3>
+          </div>
+          <ul class="space-y-2 text-gray-700 ml-11">
+            <li class="flex items-start">
+              <i class="fas fa-code text-orange-600 mr-2 mt-1"></i>
+              <span>直接对 AI 说你想要的功能</span>
+            </li>
+            <li class="bg-white rounded-lg p-3 mt-2">
+              <code class="text-sm text-orange-800 bg-orange-50 px-3 py-1 rounded">
+                "生成一个按钮，点击后弹出提示。"
+              </code>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-file-code text-orange-600 mr-2 mt-1"></i>
+              <span>AI 会给出可插入的代码片段与说明</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="border-l-4 border-pink-500 pl-6 py-4 bg-pink-50 rounded-r-lg">
+          <div class="flex items-center mb-2">
+            <span class="w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold">5</span>
+            <h3 class="text-xl font-semibold text-gray-900">预览或运行</h3>
+          </div>
+          <ul class="space-y-2 text-gray-700 ml-11">
+            <li class="flex items-start">
+              <i class="fas fa-eye text-pink-600 mr-2 mt-1"></i>
+              <span>如果项目支持预览（例如前端项目），按照 AI 提示运行预览</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-browser text-pink-600 mr-2 mt-1"></i>
+              <span>打开浏览器查看效果，确认是否符合需求</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. 核心功能与概念 -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-xl">5</span>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900">核心功能与概念</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+            <i class="fas fa-comments text-blue-600 mr-2"></i>侧边对话与行内对话
+          </h3>
+          <p class="text-gray-700">你可以在侧边栏与 AI 对话，也可以在文件内部发起讨论。它们都能理解当前上下文，给出解释或修改建议。</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+            <i class="fas fa-lightbulb text-green-600 mr-2"></i>行内实时建议（CUE）
+          </h3>
+          <p class="text-gray-700">当你输入代码时，AI 会推测你的意图并给出即时建议。你可以一键接受建议，快速完成重复或模板化的操作。</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+            <i class="fas fa-code text-purple-600 mr-2"></i>代码片段生成
+          </h3>
+          <p class="text-gray-700">不清楚怎么写代码时，用自然语言描述要做什么，AI 会生成可用的片段并说明放在哪里。</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+            <i class="fas fa-robot text-orange-600 mr-2"></i>从 0 到 1 创建项目（智能体）
+          </h3>
+          <p class="text-gray-700">直接告诉 AI 你想开发的程序，它可以自动规划并创建所需文件与目录结构。你只需逐步确认和迭代。</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-yellow-50 to-amber-50 rounded-xl p-6 md:col-span-2">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+            <i class="fas fa-zap text-yellow-600 mr-2"></i>SOLO 模式（了解即可）
+          </h3>
+          <p class="text-gray-700">这是一种高度自动化的方式，AI 会主导从需求到测试、预览的全流程。目前处于预约开放阶段，感兴趣可在官网登记。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. 两条常见工作流 -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-xl">6</span>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900">两条常见工作流</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border-2 border-blue-200">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+            <i class="fas fa-folder-open text-blue-600 mr-2"></i>工作流 A：已有项目
+          </h3>
+          <p class="text-gray-700 mb-4 font-medium">快速理解与修改</p>
+          <ol class="space-y-3">
+            <li class="flex items-start">
+              <span class="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold shrink-0">1</span>
+              <span class="text-gray-700">打开项目文件夹</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold shrink-0">2</span>
+              <span class="text-gray-700">选中一个文件，问 AI："这段代码在做什么？如何加个日志？"</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold shrink-0">3</span>
+              <span class="text-gray-700">让 AI 生成修改建议或代码片段，插入并保存</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold shrink-0">4</span>
+              <span class="text-gray-700">按提示运行或测试，查看效果</span>
+            </li>
+          </ol>
+        </div>
+
+        <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border-2 border-green-200">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+            <i class="fas fa-seedling text-green-600 mr-2"></i>工作流 B：从零开始
+          </h3>
+          <p class="text-gray-700 mb-4 font-medium">逐步搭建</p>
+          <ol class="space-y-3">
+            <li class="flex items-start">
+              <span class="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold shrink-0">1</span>
+              <span class="text-gray-700">在一个空文件夹中对 AI 说你的目标（例如"做一个待办清单的网页"）</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold shrink-0">2</span>
+              <span class="text-gray-700">让 AI 创建项目结构与核心文件</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold shrink-0">3</span>
+              <span class="text-gray-700">按建议逐步完善功能（添加输入框、列表、保存数据）</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold shrink-0">4</span>
+              <span class="text-gray-700">运行预览，验证并继续迭代</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. 三种协作方式 -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-xl">7</span>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900">与 AI 协作的三种常用方式</h2>
+      </div>
+      <div class="space-y-4">
+        <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 border-l-4 border-blue-500">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+            <i class="fas fa-question-circle text-blue-600 mr-2"></i>提问与解释
+          </h3>
+          <p class="text-gray-700 mb-3"><strong>示例问题：</strong></p>
+          <ul class="space-y-2 ml-6">
+            <li class="flex items-start">
+              <i class="fas fa-bug text-red-500 mr-2 mt-1"></i>
+              <span class="text-gray-700">"这个错误是什么意思？怎么修复？"</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-chart-line text-blue-500 mr-2 mt-1"></i>
+              <span class="text-gray-700">"这段代码效率如何？有更简单的写法吗？"</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border-l-4 border-purple-500">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+            <i class="fas fa-tasks text-purple-600 mr-2"></i>指令与改写
+          </h3>
+          <p class="text-gray-700 mb-3"><strong>示例指令：</strong></p>
+          <ul class="space-y-2 ml-6">
+            <li class="flex items-start">
+              <i class="fas fa-code text-purple-500 mr-2 mt-1"></i>
+              <span class="text-gray-700">"把这个函数分成更小的步骤，并加上中文注释。"</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-vial text-green-500 mr-2 mt-1"></i>
+              <span class="text-gray-700">"为这段逻辑写一个简单的测试。"</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 border-l-4 border-green-500">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+            <i class="fas fa-magic text-green-600 mr-2"></i>生成与补全
+          </h3>
+          <p class="text-gray-700 mb-3"><strong>示例需求：</strong></p>
+          <ul class="space-y-2 ml-6">
+            <li class="flex items-start">
+              <i class="fas fa-file-alt text-green-500 mr-2 mt-1"></i>
+              <span class="text-gray-700">"写一个读取文本文件并显示前 100 个字符的函数。"</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-mouse-pointer text-orange-500 mr-2 mt-1"></i>
+              <span class="text-gray-700">"生成一个按钮，点击后把输入框的内容清空。"</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8-10. 其他章节 -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-xl">8</span>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900">文件与项目的基本操作</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-blue-50 rounded-lg p-4">
+          <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
+            <i class="fas fa-file-plus text-blue-600 mr-2"></i>新建/打开文件
+          </h3>
+          <p class="text-sm text-gray-700">在左侧文件区新建文件或打开已有文件</p>
+        </div>
+        <div class="bg-green-50 rounded-lg p-4">
+          <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
+            <i class="fas fa-save text-green-600 mr-2"></i>保存
+          </h3>
+          <p class="text-sm text-gray-700">完成修改后保存文件（通常编辑器会提示是否保存）</p>
+        </div>
+        <div class="bg-purple-50 rounded-lg p-4">
+          <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
+            <i class="fas fa-search text-purple-600 mr-2"></i>搜索
+          </h3>
+          <p class="text-sm text-gray-700">按关键词在项目中查找文件或内容</p>
+        </div>
+        <div class="bg-orange-50 rounded-lg p-4">
+          <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
+            <i class="fas fa-play text-orange-600 mr-2"></i>运行/预览
+          </h3>
+          <p class="text-sm text-gray-700">如果项目包含运行脚本（如前端、后端项目），按照 AI 或任务提示启动预览或服务</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Git简述 -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-xl">9</span>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900">源代码管理（Git）简述</h2>
+      </div>
+      <p class="text-lg text-gray-700 mb-6">
+        你可以在 TRAE 中查看改动、提交更改并推送到远程仓库（如 GitHub）。如果你还不熟悉 Git：
+      </p>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-5">
+          <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-3">
+            <i class="fas fa-file-diff text-white text-xl"></i>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">改动</h3>
+          <p class="text-sm text-gray-700">当文件被修改时会显示变更</p>
+        </div>
+        <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-5">
+          <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mb-3">
+            <i class="fas fa-check-circle text-white text-xl"></i>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">提交</h3>
+          <p class="text-sm text-gray-700">为一组改动写一句说明，保存为一个版本</p>
+        </div>
+        <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-5">
+          <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-3">
+            <i class="fas fa-cloud-upload-alt text-white text-xl"></i>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">推送</h3>
+          <p class="text-sm text-gray-700">把你的版本同步到网络上的远程仓库，便于备份或协作</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. FAQ -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-xl">10</span>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900">常见问题（FAQ）</h2>
+      </div>
+      <div class="space-y-4">
+        <div class="bg-blue-50 rounded-lg p-6">
+          <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
+            <i class="fas fa-question-circle text-blue-600 mr-2"></i>看不到 AI 建议怎么办？
+          </h3>
+          <p class="text-gray-700">确保网络正常；在编辑器中尝试重新输入或与 AI 对话重新触发建议。</p>
+        </div>
+        <div class="bg-green-50 rounded-lg p-6">
+          <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
+            <i class="fas fa-question-circle text-green-600 mr-2"></i>预览打不开怎么办？
+          </h3>
+          <p class="text-gray-700">先确认项目类型是否支持预览；根据 AI 的提示安装依赖或运行开发脚本。</p>
+        </div>
+        <div class="bg-purple-50 rounded-lg p-6">
+          <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
+            <i class="fas fa-question-circle text-purple-600 mr-2"></i>我不懂代码能用吗？
+          </h3>
+          <p class="text-gray-700">可以。你只需用中文描述目标与问题，AI 会给出分步建议与代码片段。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. 术语表 -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-xl">11</span>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900">术语表（超简版）</h2>
+      </div>
+      <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-6">
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-white rounded-lg p-4">
+            <h3 class="font-semibold text-gray-900 mb-2"><strong>IDE</strong></h3>
+            <p class="text-sm text-gray-700">集成开发环境，编写和管理代码的工具</p>
+          </div>
+          <div class="bg-white rounded-lg p-4">
+            <h3 class="font-semibold text-gray-900 mb-2"><strong>AI 助手</strong></h3>
+            <p class="text-sm text-gray-700">和你对话、解释与改写代码的智能功能</p>
+          </div>
+          <div class="bg-white rounded-lg p-4">
+            <h3 class="font-semibold text-gray-900 mb-2"><strong>CUE（行内建议）</strong></h3>
+            <p class="text-sm text-gray-700">在你输入时出现的自动补全与建议</p>
+          </div>
+          <div class="bg-white rounded-lg p-4">
+            <h3 class="font-semibold text-gray-900 mb-2"><strong>代码片段生成</strong></h3>
+            <p class="text-sm text-gray-700">AI 根据你的描述自动生成可插入的代码</p>
+          </div>
+          <div class="bg-white rounded-lg p-4">
+            <h3 class="font-semibold text-gray-900 mb-2"><strong>智能体</strong></h3>
+            <p class="text-sm text-gray-700">跨文件、项目级自动编写与修改代码的能力</p>
+          </div>
+          <div class="bg-white rounded-lg p-4">
+            <h3 class="font-semibold text-gray-900 mb-2"><strong>SOLO 模式</strong></h3>
+            <p class="text-sm text-gray-700">高度自动化的开发模式，当前可在官网预约</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. 参考与延伸 -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-xl">12</span>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900">参考与延伸</h2>
+      </div>
+      <div class="bg-blue-50 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+          <i class="fas fa-book text-blue-600 mr-2"></i>官方文档
+        </h3>
+        <ul class="space-y-3">
+          <li class="flex items-start">
+            <i class="fas fa-link text-blue-600 mr-2 mt-1"></i>
+            <div>
+              <p class="text-gray-900 font-medium">TRAE CN 文档《什么是 TRAE？》</p>
+              <p class="text-sm text-blue-600">https://docs.trae.cn/ide/what-is-trae?_lang=zh</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-list text-blue-600 mr-2 mt-1"></i>
+            <p class="text-gray-700">更多文档与教程：可在官网文档中心浏览（安装、侧边对话、行内对话、CUE、智能体、项目管理、插件管理、源代码管理等主题）</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 13. 下一步建议 -->
+    <div class="bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-2xl p-8 text-white">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+          <span class="font-bold text-xl">13</span>
+        </div>
+        <h2 class="text-3xl font-bold">下一步建议</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+          <h3 class="text-xl font-semibold mb-3 flex items-center">
+            <i class="fas fa-leaf mr-2"></i>从零开始
+          </h3>
+          <p class="text-white/90">在一个空文件夹中对 AI 说你的目标，照着第 4 章操作 10 分钟即可完成首次体验</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+          <h3 class="text-xl font-semibold mb-3 flex items-center">
+            <i class="fas fa-folder-open mr-2"></i>打开已有项目
+          </h3>
+          <p class="text-white/90">打开你的项目文件夹，用自然语言与 AI 协作，任何不懂的地方都直接提问</p>
+        </div>
+      </div>
+      <div class="mt-8 text-center">
+        <p class="text-white/90 text-lg">
+          <i class="fas fa-magic mr-2"></i>
+          在操作过程中，用自然语言持续与 AI 协作，边预览边完善，反复小步改进
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer（与首页统一） -->
+  <footer class="bg-gray-900 text-white py-12 px-6">
+    <div class="container mx-auto text-center">
+      <p class="text-lg">
+        <i class="fas fa-code"></i> Built with passion for Computational Thinking Education
+      </p>
+      <p class="text-gray-400 mt-2">© 2025 CUC Introduction to Computational Thinking Course Website</p>
+    </div>
+  </footer>
+
+  <script>
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
