@@ -93,12 +93,12 @@
       <h2 class="text-xl font-semibold mb-4 text-gray-900">字符输入</h2>
       <div class="flex flex-col md:flex-row items-center gap-3">
         <label for="char-input" class="text-sm font-medium text-gray-700 md:w-24">请输入一个字符：</label>
-        <input type="text" id="char-input" maxlength="1" class="flex-1 max-w-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 text-base" placeholder="输入任意一个字符">
+        <input type="text" id="char-input" maxlength="10" class="flex-1 max-w-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 text-base" placeholder="输入任意一个字符（支持 emoji、生僻字）">
         <button id="convert-btn" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-2 px-5 rounded-xl transition-all transform hover:scale-105 hover:shadow-lg whitespace-nowrap text-sm">
           <i class="fas fa-right-left mr-2"></i>转换编码
         </button>
       </div>
-      <p class="mt-2 text-xs text-gray-500"><i class="fas fa-circle-info mr-1"></i> 请输入单个字符，系统将自动转换并显示其各种编码格式</p>
+      <p class="mt-2 text-xs text-gray-500"><i class="fas fa-circle-info mr-1"></i> 支持单字符、emoji、生僻字；若输入多个字符将取第一个进行转换</p>
     </div>
 
     <!-- 结果网格 -->
@@ -355,6 +355,13 @@
       // 取消本地映射表，避免不完整导致的误判
 
 
+      /** 取字符串的第一个完整字符（按 Unicode 码点，支持 emoji 与生僻字） */
+      function getFirstCodePoint(str) {
+        if (!str || !str.length) return '';
+        const cp = str.codePointAt(0);
+        return cp === undefined ? '' : String.fromCodePoint(cp);
+      }
+
       function getCharacterName(char) {
         const codePoint = char.codePointAt(0);
         const names = {
@@ -391,9 +398,10 @@
       }
 
       function convertCharacter() {
-        const char = charInput.value.trim();
-        if (!char || char.length !== 1) {
-          alert('请输入单个字符');
+        const raw = charInput.value.trim();
+        const char = getFirstCodePoint(raw);
+        if (!char) {
+          alert('请输入至少一个字符');
           charInput.focus();
           return;
         }
@@ -461,7 +469,6 @@
           asciiBin.textContent = '不支持';
           asciiChar.textContent = '非ASCII字符，无对应ASCII编码';
         }
-
       }
 
       convertBtn.addEventListener('click', convertCharacter);

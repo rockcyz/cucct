@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算思维概论课程网站 | CUC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        /* 中传特色配色 */
+        :root {
+            --cuc-red: #e61e25;
+            --cuc-gold: #f2a900;
+            --cuc-blue: #0069b7;
+            --cuc-dark-blue: #003366;
+        }
+        /* 自定义动画 */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        /* 玻璃拟态效果 */
+        .glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        /* 渐变文字 */
+        .gradient-text {
+            background: linear-gradient(90deg, var(--cuc-red), var(--cuc-gold), var(--cuc-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        /* 卡片悬停效果 */
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 via-white to-gray-100 min-h-screen text-gray-800 overflow-x-hidden">
+    <!-- 顶部导航栏 -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass">
+        <div class="container mx-auto px-4 py-3 md:px-6 md:py-4">
+            <nav class="flex items-center justify-between">
+                <!-- Logo和标题 -->
+                <div class="flex items-center space-x-2 md:space-x-3">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-cuc-red to-cuc-gold rounded-lg flex items-center justify-center shadow-lg">
+                        <span class="text-white font-bold text-lg md:text-xl">💡</span>
+                    </div>
+                    <h1 class="text-xl md:text-2xl font-bold gradient-text">
+                        计算思维概论
+                    </h1>
+                </div>
+                <!-- 导航链接 -->
+                <div class="hidden md:flex space-x-6 lg:space-x-8">
+                    <a href="#courses" class="text-gray-700 hover:text-cuc-red transition-colors font-medium relative group">
+                        课程内容
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cuc-red transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#lab-tools" class="text-gray-700 hover:text-cuc-red transition-colors font-medium relative group">
+                        实验工具
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cuc-red transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="faq.html" class="text-gray-700 hover:text-cuc-red transition-colors font-medium relative group">
+                        常见问题
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cuc-red transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="knowledge-graph.html" class="text-gray-700 hover:text-cuc-red transition-colors font-medium relative group">
+                        知识图谱
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cuc-red transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#about" class="text-gray-700 hover:text-cuc-red transition-colors font-medium relative group">
+                        关于网站
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cuc-red transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </div>
+                <!-- 移动端菜单按钮 -->
+                <button class="md:hidden text-gray-700 hover:text-cuc-red transition-colors focus:outline-none focus:ring-2 focus:ring-cuc-red/30 focus:rounded-lg p-2">
+                    <i class="fas fa-bars text-xl md:text-2xl"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="pt-32 pb-20 px-4 md:px-6 overflow-hidden relative" id="home">
+        <!-- 背景装饰 -->
+        <div class="absolute -top-20 -left-20 w-64 h-64 md:w-80 md:h-80 bg-cuc-red/10 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute top-1/4 -right-20 md:-right-40 w-64 h-64 md:w-96 md:h-96 bg-cuc-blue/10 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute bottom-20 left-1/3 w-48 h-48 md:w-60 md:h-60 bg-cuc-gold/10 rounded-full blur-3xl animate-pulse-slow"></div>
+        
+        <div class="container mx-auto relative z-10">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-8 md:gap-12">
+                <!-- 文本内容 -->
+                <div class="lg:w-1/2 text-center lg:text-left">
+                    <div class="inline-flex items-center bg-gradient-to-r from-cuc-red/20 to-cuc-gold/20 text-cuc-dark-blue px-4 py-2 md:px-5 md:py-2 rounded-full text-xs sm:text-sm font-semibold mb-6 shadow-sm">
+                        🎓 中国传媒大学 | 通识教育核心课程
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 md:mb-8 leading-tight">
+                        探索<span class="gradient-text">计算思维</span>的核心世界
+                    </h2>
+                    <p class="text-base sm:text-lg md:text-xl text-gray-700 mb-8 md:mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        专为文、艺、管专业设计的通识课程，用创新思维解锁数字时代的核心能力，让技术与艺术完美融合。
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="course-introduction.html" class="bg-gradient-to-r from-cuc-red to-cuc-gold text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center space-x-2 w-full sm:w-auto">
+                            <span>开始探索</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#lab-tools" class="glass text-cuc-dark-blue border border-gray-200 px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-semibold shadow-md hover:shadow-lg transition-all transform hover:scale-105 flex items-center justify-center space-x-2 w-full sm:w-auto">
+                            <span>实验工具</span>
+                            <i class="fas fa-tools"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- 可视化图形 -->
+                <div class="lg:w-1/2 relative w-full max-w-lg">
+                    <div class="bg-white rounded-2xl md:rounded-3xl shadow-xl md:shadow-2xl p-6 md:p-8 glass animate-float">
+                        <div class="text-center mb-4 md:mb-6">
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">计算思维核心素养</h3>
+                            <p class="text-sm md:text-gray-600">培养四大核心能力</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 md:gap-6">
+                            <!-- 分解思维 -->
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg md:rounded-xl p-4 md:p-6 text-center hover:shadow-lg transition-all">
+                                <div class="w-12 h-12 md:w-16 md:h-16 bg-cuc-blue rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                                    <i class="fas fa-layer-group text-white text-xl md:text-2xl"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-900 mb-1 md:mb-2">分解思维</h4>
+                                <p class="text-xs md:text-sm text-gray-600">问题拆解与模块化</p>
+                            </div>
+                            <!-- 模式识别 -->
+                            <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-lg md:rounded-xl p-4 md:p-6 text-center hover:shadow-lg transition-all">
+                                <div class="w-12 h-12 md:w-16 md:h-16 bg-cuc-red rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                                    <i class="fas fa-search text-white text-xl md:text-2xl"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-900 mb-1 md:mb-2">模式识别</h4>
+                                <p class="text-xs md:text-sm text-gray-600">寻找规律与相似性</p>
+                            </div>
+                            <!-- 抽象思维 -->
+                            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-lg md:rounded-xl p-4 md:p-6 text-center hover:shadow-lg transition-all">
+                                <div class="w-12 h-12 md:w-16 md:h-16 bg-cuc-gold rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                                    <i class="fas fa-database text-white text-xl md:text-2xl"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-900 mb-1 md:mb-2">抽象思维</h4>
+                                <p class="text-xs md:text-sm text-gray-600">提取核心与本质</p>
+                            </div>
+                            <!-- 算法设计 -->
+                            <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg md:rounded-xl p-4 md:p-6 text-center hover:shadow-lg transition-all">
+                                <div class="w-12 h-12 md:w-16 md:h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                                    <i class="fas fa-code text-white text-xl md:text-2xl"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-900 mb-1 md:mb-2">算法设计</h4>
+                                <p class="text-xs md:text-sm text-gray-600">步骤化解决问题</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 装饰元素 -->
+                    <div class="absolute -top-6 -right-6 md:-top-8 md:-right-8 w-16 h-16 md:w-20 md:h-20 bg-cuc-red/30 rounded-full blur-xl"></div>
+                    <div class="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 w-16 h-16 md:w-20 md:h-20 bg-cuc-blue/30 rounded-full blur-xl"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 课程内容 -->
+    <section class="py-16 md:py-24 px-4 md:px-6 bg-white/80" id="courses">
+        <div class="container mx-auto">
+            <div class="text-center mb-10 md:mb-16">
+                <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
+                    <span class="gradient-text">课程内容</span>
+                </h3>
+                <p class="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+                    全方位的教学资源，助力你的计算思维之旅
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <!-- 课程介绍 -->
+                <div class="card-hover bg-white rounded-xl md:rounded-2xl shadow-xl p-6 md:p-8 border-t-4 border-cuc-red">
+                    <div class="flex items-center mb-4 md:mb-6">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-cuc-red to-red-500 rounded-lg md:rounded-xl flex items-center justify-center mr-3 md:mr-4 shrink-0 shadow-lg">
+                            <span class="text-white text-xl md:text-2xl">📚</span>
+                        </div>
+                        <h4 class="text-xl md:text-2xl font-bold text-gray-900">课程介绍</h4>
+                    </div>
+                    <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-5 flex-grow">了解课程目标、内容大纲和考核方式等详细信息。</p>
+                    <ul class="text-xs sm:text-sm text-gray-600 mb-6 md:mb-8 space-y-2">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-cuc-red mr-2"></i>课程教学目标</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-cuc-red mr-2"></i>教学内容大纲</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-cuc-red mr-2"></i>考核方式说明</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-cuc-red mr-2"></i>学习建议指导</li>
+                    </ul>
+                    <a href="course-introduction.html" class="block w-full bg-gradient-to-r from-cuc-red to-red-500 text-white px-5 py-2.5 md:px-6 md:py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center flex items-center justify-center space-x-2 text-sm md:text-base">
+                        <span>查看详情</span>
+                        <i class="fas fa-arrow-right text-sm"></i>
+                    </a>
+                </div>
+
+                <!-- 在线教材 -->
+                <div class="card-hover bg-white rounded-xl md:rounded-2xl shadow-xl p-6 md:p-8 border-t-4 border-cuc-blue">
+                    <div class="flex items-center mb-4 md:mb-6">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-cuc-blue to-blue-500 rounded-lg md:rounded-xl flex items-center justify-center mr-3 md:mr-4 shrink-0 shadow-lg">
+                            <span class="text-white text-xl md:text-2xl">📖</span>
+                        </div>
+                        <h4 class="text-xl md:text-2xl font-bold text-gray-900">在线教材</h4>
+                    </div>
+                    <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-5 flex-grow">完整的在线教材，包括理论讲解、案例分析和习题练习。</p>
+                    <ul class="text-xs sm:text-sm text-gray-600 mb-6 md:mb-8 space-y-2">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-cuc-blue mr-2"></i>章节内容浏览</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-cuc-blue mr-2"></i>理论要点解析</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-cuc-blue mr-2"></i>案例分析讲解</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-cuc-blue mr-2"></i>习题在线练习</li>
+                    </ul>
+                    <a href="./OnlineTextbook/index.html" class="block w-full bg-gradient-to-r from-cuc-blue to-blue-500 text-white px-5 py-2.5 md:px-6 md:py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center flex items-center justify-center space-x-2 text-sm md:text-base">
+                        <span>进入教材</span>
+                        <i class="fas fa-arrow-right text-sm"></i>
+                    </a>
+                </div>
+
+                <!-- 电子课件 -->
+                <div class="card-hover bg-white rounded-xl md:rounded-2xl shadow-xl p-6 md:p-8 border-t-4 border-cuc-gold">
+                    <div class="flex items-center mb-4 md:mb-6">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-cuc-gold to-yellow-500 rounded-lg md:rounded-xl flex items-center justify-center mr-3 md:mr-4 shrink-0 shadow-lg">
+                            <span class="text-white text-xl md:text-2xl">📊</span>
+                        </div>
+                        <h4 class="text-xl md:text-2xl font-bold text-gray-900">电子课件</h4>
+                    </div>
+                    <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-5 flex-grow">所有章节的电子课件下载，便于课堂学习和课后复习。</p>
+                    <ul class="text-xs sm:text-sm text-gray-600 mb-6 md:mb-8 space-y-2">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-cuc-gold mr-2"></i>章节课件下载</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-cuc-gold mr-2"></i>多种格式支持</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-cuc-gold mr-2"></i>高清课件质量</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-cuc-gold mr-2"></i>定期更新维护</li>
+                    </ul>
+                    <a href="e-courseware.html" class="block w-full bg-gradient-to-r from-cuc-gold to-yellow-500 text-white px-5 py-2.5 md:px-6 md:py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center flex items-center justify-center space-x-2 text-sm md:text-base">
+                        <span>进入课件</span>
+                        <i class="fas fa-arrow-right text-sm"></i>
+                    </a>
+                </div>
+
+                <!-- 实验工具 -->
+                <div class="card-hover bg-white rounded-xl md:rounded-2xl shadow-xl p-6 md:p-8 border-t-4 border-purple-500">
+                    <div class="flex items-center mb-4 md:mb-6">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg md:rounded-xl flex items-center justify-center mr-3 md:mr-4 shrink-0 shadow-lg">
+                            <span class="text-white text-xl md:text-2xl">🧪</span>
+                        </div>
+                        <h4 class="text-xl md:text-2xl font-bold text-gray-900">实验工具</h4>
+                    </div>
+                    <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-5 flex-grow">系列在线实验辅助工具，帮助理解计算思维核心概念。</p>
+                    <ul class="text-xs sm:text-sm text-gray-600 mb-6 md:mb-8 space-y-2">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-2"></i>图像编码工具</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-2"></i>字符编码工具</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-2"></i>数值转换工具</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-2"></i>实验平台指南</li>
+                    </ul>
+                    <button onclick="document.getElementById('lab-tools').scrollIntoView({behavior: 'smooth'})" class="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-5 py-2.5 md:px-6 md:py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 w-full flex items-center justify-center space-x-2 text-sm md:text-base">
+                        <span>查看工具</span>
+                        <i class="fas fa-arrow-right text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI助教 -->
+    <section class="py-20 px-6 bg-gradient-to-br from-cuc-dark-blue/5 to-cuc-blue/5">
+        <div class="container mx-auto">
+            <div class="bg-white rounded-2xl shadow-2xl p-10 overflow-hidden relative">
+                <!-- 背景装饰 -->
+                <div class="absolute -top-20 -right-20 w-60 h-60 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-gradient-to-br from-cuc-red/20 to-cuc-gold/20 rounded-full blur-3xl"></div>
+                
+                <div class="flex flex-col md:flex-row items-center gap-10 relative z-10">
+                    <div class="md:w-1/3">
+                        <div class="w-40 h-40 bg-gradient-to-br from-cuc-blue to-cuc-dark-blue rounded-2xl flex items-center justify-center mx-auto shadow-2xl">
+                            <span class="text-white text-5xl">🤖</span>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3">
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">AI智能助教</h3>
+                        <p class="text-lg text-gray-700 mb-8">
+                            24小时在线的智能问答助手，随时解答你关于计算思维的疑问，提供个性化学习指导和课程资源推荐。
+                        </p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                            <div class="bg-gradient-to-br from-cuc-blue/10 to-blue-500/10 rounded-xl p-4 text-center">
+                                <div class="text-3xl mb-2">⌚</div>
+                                <div class="text-sm font-semibold text-gray-800">24小时在线</div>
+                            </div>
+                            <div class="bg-gradient-to-br from-cuc-red/10 to-red-500/10 rounded-xl p-4 text-center">
+                                <div class="text-3xl mb-2">🎯</div>
+                                <div class="text-sm font-semibold text-gray-800">个性化建议</div>
+                            </div>
+                            <div class="bg-gradient-to-br from-cuc-gold/10 to-yellow-500/10 rounded-xl p-4 text-center">
+                                <div class="text-3xl mb-2">📚</div>
+                                <div class="text-sm font-semibold text-gray-800">详细讲解</div>
+                            </div>
+                            <div class="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl p-4 text-center">
+                                <div class="text-3xl mb-2">✏️</div>
+                                <div class="text-sm font-semibold text-gray-800">题目辅导</div>
+                            </div>
+                        </div>
+                        <button onclick="openAIAssistant()" class="bg-gradient-to-r from-cuc-blue to-cuc-dark-blue text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center space-x-2">
+                            <i class="fas fa-comments"></i>
+                            <span>开始对话</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 实验工具 -->
+    <section class="py-24 px-6" id="lab-tools">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h3 class="text-4xl font-bold text-gray-900 mb-4">
+                    <span class="gradient-text">实验工具</span>
+                </h3>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    交互式实验平台，让抽象概念变得直观可操作
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- TRAE入门手册 -->
+                <div class="card-hover bg-white rounded-2xl shadow-xl p-8">
+                    <div class="text-center mb-7">
+                        <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-cuc-gold to-orange-500 rounded-2xl mb-5 shadow-lg">
+                            <i class="fas fa-rocket text-white text-4xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-900 mb-3">实验平台入门</h4>
+                        <p class="text-gray-600">TRAE零基础快速上手指南</p>
+                    </div>
+                    <ul class="text-sm text-gray-600 mb-8 space-y-2">
+                        <li class="flex items-center justify-center"><i class="fas fa-check text-cuc-gold mr-2"></i>10分钟快速体验</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-check text-cuc-gold mr-2"></i>AI协作功能详解</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-check text-cuc-gold mr-2"></i>常见问题解答</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-check text-cuc-gold mr-2"></i>完整操作教程</li>
+                    </ul>
+                    <a href="trae-introduction.html" class="block w-full bg-gradient-to-r from-cuc-gold to-orange-500 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center">
+                        查看手册 →
+                    </a>
+                </div>
+
+                <!-- 图像编码 -->
+                <div class="card-hover bg-white rounded-2xl shadow-xl p-8">
+                    <div class="text-center mb-7">
+                        <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-cuc-blue to-blue-600 rounded-2xl mb-5 shadow-lg">
+                            <i class="fas fa-image text-white text-4xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-900 mb-3">图像编码</h4>
+                        <p class="text-gray-600">探索数字图像的表示方式</p>
+                    </div>
+                    <ul class="text-sm text-gray-600 mb-8 space-y-2">
+                        <li class="flex items-center justify-center"><i class="fas fa-check text-cuc-blue mr-2"></i>RGB像素编码查看</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-check text-cuc-blue mr-2"></i>图像缩放与分析</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-check text-cuc-blue mr-2"></i>十六进制图像生成</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-check text-cuc-blue mr-2"></i>实时颜色信息显示</li>
+                    </ul>
+                    <a href="image_encoding.html" class="block w-full bg-gradient-to-r from-cuc-blue to-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center">
+                        进入工具 →
+                    </a>
+                </div>
+
+                <!-- 字符编码 -->
+                <div class="card-hover bg-white rounded-2xl shadow-xl p-8">
+                    <div class="text-center mb-7">
+                        <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-cuc-red to-red-600 rounded-2xl mb-5 shadow-lg">
+                            <i class="fas fa-keyboard text-white text-4xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-900 mb-3">字符编码</h4>
+                        <p class="text-gray-600">查看字符的多种编码格式</p>
+                    </div>
+                    <ul class="text-sm text-gray-600 mb-8 space-y-2">
+                        <li class="flex items-center justify-center"><i class="fas fa-check text-cuc-red mr-2"></i>Unicode编码查看</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-check text-cuc-red mr-2"></i>UTF-8/UTF-16转换</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-check text-cuc-red mr-2"></i>ASCII编码支持</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-check text-cuc-red mr-2"></i>字符信息显示</li>
+                    </ul>
+                    <a href="character_encoding.html" class="block w-full bg-gradient-to-r from-cuc-red to-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center">
+                        进入工具 →
+                    </a>
+                </div>
+
+                <!-- 数值转换 -->
+                <div class="card-hover bg-white rounded-2xl shadow-xl p-8">
+                    <div class="text-center mb-7">
+                        <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl mb-5 shadow-lg">
+                            <i class="fas fa-calculator text-white text-4xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-900 mb-3">数值转换</h4>
+                        <p class="text-gray-600">进制转换与运算工具</p>
+                    </div>
+                    <ul class="text-sm text-gray-600 mb-8 space-y-2">
+                        <li class="flex items-center justify-center"><i class="fas fa-check text-purple-500 mr-2"></i>进制转换（2/10/16）</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-check text-purple-500 mr-2"></i>算术运算支持</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-check text-purple-500 mr-2"></i>逻辑运算功能</li>
+                        <li class="flex items-center justify-center"><i class="fas fa-check text-purple-500 mr-2"></i>实时结果显示</li>
+                    </ul>
+                    <a href="number_converter.html" class="block w-full bg-gradient-to-r from-purple-500 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 text-center">
+                        进入工具 →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于网站 -->
+    <section class="py-24 px-6 bg-white" id="about">
+        <div class="container mx-auto">
+            <div class="bg-gradient-to-br from-cuc-dark-blue/5 to-cuc-blue/5 rounded-2xl shadow-xl p-12 max-w-4xl mx-auto">
+                <h3 class="text-4xl font-bold text-center mb-10">
+                    <span class="gradient-text">关于本网站</span>
+                </h3>
+                <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
+                    <p>
+                        本网站为<span class="font-semibold text-cuc-dark-blue">计算思维概论课程</span>的综合性教学平台，旨在为学生提供便捷、高效的学习体验。
+                    </p>
+                    <p>
+                        网站提供<span class="font-semibold text-cuc-red">课程介绍</span>、<span class="font-semibold text-cuc-blue">在线教材</span>、<span class="font-semibold text-cuc-gold">电子课件</span>和<span class="font-semibold text-purple-600">实验工具</span>等全方位教学资源，助力学生深入理解计算思维的核心概念。
+                    </p>
+                    <p>
+                        我们采用<span class="font-semibold text-cuc-dark-blue">现代化Web技术</span>开发，支持多种设备访问，无需安装任何插件，为学生提供流畅的学习体验。
+                    </p>
+                    <div class="text-center mt-10">
+                        <p class="text-sm text-gray-600">
+                            © 2024 中国传媒大学 | 计算思维概论课程组
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // AI助教打开函数
+        function openAIAssistant() {
+            window.open('https://udify.app/chabot/zYqORxuvMnvxOGS', '_blank');
+        }
+        
+        // 滚动动画效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // 为所有卡片添加观察器
+            const cards = document.querySelectorAll('.card-hover');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
