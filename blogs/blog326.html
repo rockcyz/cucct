@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>从写代码到说人话——看计算思维的进化史</title>
+<style>
+  @page {
+    size: 90mm auto;
+    margin: 0;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #fff;
+    color: #333;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 1.9;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .article {
+    padding: 24px 20px 40px;
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.6;
+    margin: 28px 0 14px;
+    padding-left: 10px;
+    border-left: 4px solid #07c160;
+  }
+  p {
+    font-size: 16px;
+    color: #3f3f3f;
+    line-height: 2;
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  strong {
+    color: #07c160;
+    font-weight: 700;
+  }
+  hr {
+    border: none;
+    border-top: 1px dashed #ddd;
+    margin: 28px 0;
+  }
+  ul {
+    margin: 12px 0 16px 0;
+    padding-left: 20px;
+  }
+  ul li {
+    font-size: 15px;
+    color: #3f3f3f;
+    line-height: 2;
+    margin-bottom: 6px;
+  }
+  code {
+    background: #f6f6f6;
+    color: #c7254e;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 14px;
+    font-family: Menlo, Monaco, Consolas, monospace;
+  }
+  blockquote {
+    background: #f8f8f8;
+    border-left: 4px solid #07c160;
+    margin: 16px 0;
+    padding: 14px 16px;
+    border-radius: 0 6px 6px 0;
+  }
+  blockquote p {
+    color: #555;
+    margin-bottom: 0;
+    font-size: 15px;
+  }
+  img {
+    display: block;
+    width: 100%;
+    border-radius: 6px;
+    margin: 16px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .keyword-tag {
+    display: inline-block;
+    background: #f0faf4;
+    color: #07c160;
+    font-size: 14px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .highlight-box {
+    background: linear-gradient(135deg, #f0faf4 0%, #e8f5e9 100%);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+    text-align: center;
+  }
+  .highlight-box p {
+    color: #2e7d32;
+    font-weight: 700;
+    margin-bottom: 0;
+    font-size: 15px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  table th {
+    background: #07c160;
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 8px;
+    text-align: center;
+  }
+  table td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    color: #555;
+  }
+  table tr:nth-child(even) {
+    background: #f9f9f9;
+  }
+  .footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+    font-size: 13px;
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    line-height: 1.8;
+  }
+</style>
+</head>
+<body>
+<nav class="blog-top-nav" style="background:#f8fafc;border-bottom:1px solid #e5e7eb;padding:12px 20px;font-size:14px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;">
+  <a href="../index.html" style="color:#2563eb;text-decoration:none;">课程首页</a>
+  <a href="index.html" style="color:#2563eb;text-decoration:none;">文章列表</a>
+</nav>
+<div class="article">
+
+<h1>从写代码到说人话<br>——看计算思维的进化史</h1>
+
+<p>计算思维的核心是两件事：<strong>抽象</strong>和<strong>自动化</strong>。</p>
+
+<p>先把现实世界里的问题抽象清楚——"我要解决什么"；再用计算机把解决过程自动化——"让机器来做"。听起来简单，但这两步能做到什么程度，取决于你手里的工具有多强。</p>
+
+<p>我是一名大学老师，每周的每节课都要批改上百份学生作业。这件事让我亲身经历了计算思维工具的三次进化。</p>
+
+<hr>
+
+<h2>先说问题本身</h2>
+
+<p>100个学生的作业，从系统里导出就是100个压缩包，解压后是100个文件夹，文件夹里的文档名五花八门，有的叫<code>作业3.pdf</code>，有的叫<code>homework_final_最终版_真的是最终版.pdf</code>，还有人把作业塞在一个zip里，zip里套着一个文件夹，文件夹里才是正文。</p>
+
+<p>说说我批改时的真实状态：打开第一个同学的文件夹，找到PDF，看完，关掉，回退打开第二个同学的文件夹，发现是个zip，解压，里面是3个Word，再逐一打开浏览，看完，关掉，打开第三个，可能是张手写作业的拍照照片......如此循环100次。</p>
+
+<p>整个过程不是在"批改作业"，而是在"找作业"。真正读内容的时间可能只占一半，剩下的时间全耗在切换目录、打开关闭文件上。</p>
+
+<div class="highlight-box">
+  <p>这就是需要被抽象和自动化的问题。</p>
+</div>
+
+<p>如果能把100个人的作业合并成一个PDF，每页自动标好学号姓名，我只需要从头翻到尾，批完拉倒——这个效率差距是决定性的。</p>
+
+<p>但是，光是把这堆东西整理成一个文件，就能让人先崩溃一次。</p>
+
+<p>所以我开始折腾自动化。这一折腾，就经历了三个时代。</p>
+
+<hr>
+
+<h2>第一阶段：自己动手，丰衣足食（累）</h2>
+
+<p><span class="keyword-tag">写脚本 / 调bug / 肝到深夜</span></p>
+
+<p>这是计算思维最原始的形态：<strong>你自己完成抽象，再自己写代码实现自动化</strong>。</p>
+
+<p>我得先把问题想清楚：有哪些文件格式？每种怎么处理？合并顺序怎么定？水印放哪里？这一步是"抽象"，要把现实世界的混乱整理成计算机能理解的逻辑。</p>
+
+<p>然后是实现：</p>
+
+<ul>
+  <li>先学怎么用Python处理PDF（好，找到了个库）</li>
+  <li>发现有的PDF是扫描件，处理方式不一样（好，再找方案）</li>
+  <li>发现有的文件是Word，有的是Markdown，有的是zip压缩包（好，一个个处理）</li>
+  <li>写完发现中文水印显示乱码（好，调字体）</li>
+</ul>
+
+<p>前前后后花了好几个周末，最终磕磕绊绊搞出了一个能用的脚本。用的时候要打开终端，输一长串命令，一旦报错只有我自己能看懂。</p>
+
+<img src="./p1.png" alt="第一阶段截图">
+
+<p>这个阶段的瓶颈很明显：<strong>抽象和自动化都压在一个人身上</strong>。你得同时是"懂问题的人"和"会写代码的人"，缺一不可。</p>
+
+<div class="highlight-box">
+  <p>交付物：一堆代码。使用者：只有我自己。</p>
+</div>
+
+<hr>
+
+<h2>第二阶段：AI帮我写代码（省力，但抽象还得自己来）</h2>
+
+<p><span class="keyword-tag">Vibe Coding / 描述需求 / 几分钟出结果</span></p>
+
+<p>后来大模型火了，分工变了：<strong>你负责抽象，AI负责自动化</strong>。</p>
+
+<p>于是我把想清楚的需求告诉AI："帮我写一个Python脚本，合并学生作业PDF，按学号姓名加水印，支持zip解压和Markdown转换。"</p>
+
+<p>AI噼里啪啦写了一大段，我复制粘贴，跑起来，改几个小问题，完事。</p>
+
+<p>原来要花一个周末的活，现在一个下午搞定。</p>
+
+<img src="./p2.png" alt="第二阶段截图">
+
+<p>这个阶段有个专门的词叫 <strong>Vibe Coding</strong>——你描述"感觉"和需求，AI帮你实现。你不需要记住每个函数怎么写，不需要自己查文档，只需要把问题想清楚、说清楚。</p>
+
+<p>但有个事没变：<strong>你还是要有一个软件</strong>。</p>
+
+<p>脚本要维护，要更新，要在别人的电脑上配环境。换个学期想改改逻辑，还得找回代码，重新让AI修改。</p>
+
+<p>"自动化"这件事被封装进了一个软件，软件这个壳还在，只是造壳的成本降低了。</p>
+
+<div class="highlight-box">
+  <p>交付物：一堆AI写的代码。使用者：还是只有我自己。</p>
+</div>
+
+<hr>
+
+<h2>第三阶段：连软件都省了（抽象一次，永久自动化）</h2>
+
+<p><span class="keyword-tag">Agent / Skill / 意图即指令</span></p>
+
+<p>最近我在用一个叫 Qoder CLI 的 AI 编程助手，它有个功能叫 <strong>Skill</strong>（技能包）。</p>
+
+<p>这一阶段的变化是：<strong>抽象的成果直接变成了AI的行为准则，不再需要翻译成代码</strong>。</p>
+
+<p>简单说，就是把一套处理流程写成一个自然语言的说明文档，告诉AI："遇到作业批改任务，你按这个流程来。"然后这个说明文档就变成了AI的一项技能。</p>
+
+<p>下次我要处理作业，只需要对AI说：</p>
+
+<blockquote>
+  <p>"合并这个目录下的作业"</p>
+</blockquote>
+
+<p>AI就自动调用这个技能，找文件、解压、转换格式、加水印、合并输出——全部搞定。</p>
+
+<img src="./p3.png" alt="第三阶段截图">
+
+<p>你可能会问：那Skill本身不也要有人来写吗？</p>
+
+<p>对，但Skill是一次性的抽象。写一次，以后每次处理作业都能用。更关键的是，Skill本质上是<strong>自然语言写的流程说明</strong>，不是代码——你把问题想清楚了，直接写下来就是Skill，不需要懂编程。</p>
+
+<p><strong>软件这个形态消失了。</strong> 以前，"自动化"意味着有一个程序在那里，你去操作它。现在，"自动化"意味着你把问题描述清楚，AI自己决定怎么办。</p>
+
+<div class="highlight-box">
+  <p>交付物：一个技能包。使用者：任何人。</p>
+</div>
+
+<hr>
+
+<h2>三个阶段，抽象与自动化的分工在变</h2>
+
+<table>
+  <tr>
+    <th></th>
+    <th>谁来抽象</th>
+    <th>谁来自动化</th>
+    <th>门槛</th>
+  </tr>
+  <tr>
+    <td><strong>第一阶段</strong></td>
+    <td>你自己</td>
+    <td>你自己写代码</td>
+    <td>得懂技术</td>
+  </tr>
+  <tr>
+    <td><strong>第二阶段</strong></td>
+    <td>你自己</td>
+    <td>AI写代码</td>
+    <td>得会描述</td>
+  </tr>
+  <tr>
+    <td><strong>第三阶段</strong></td>
+    <td>你自己</td>
+    <td>AI直接执行</td>
+    <td>得想清楚</td>
+  </tr>
+</table>
+
+<p>注意看"谁来抽象"这一列——三个阶段都是你自己。</p>
+
+<p><strong>这才是计算思维真正的核心</strong>：把现实世界的问题想清楚、说清楚。这件事AI替代不了，也不该替代。变化的只是"自动化"这一步的门槛，从必须会写代码，到只需要说一句话。</p>
+
+<p>有人担心：AI会不会让程序员失业？</p>
+
+<p>我觉得这个问题问偏了。真正发生的事情是：<strong>原来需要程序员才能做到的自动化，现在普通人也能做了</strong>。能力的门槛在降低，但"把问题想清楚"这个能力反而更值钱了——因为它成了唯一还需要人来做的事。</p>
+
+<p>而我，一个平时要花很多时间整理作业文件的老师，现在只需要一句话。</p>
+
+<p>剩下的时间，我用来认真看学生写了什么。</p>
+
+<div class="footer">
+  本文所有操作均在 Qoder CLI + 自定义 Skill 环境下完成，合并100份作业实测耗时约120秒。
+</div>
+
+</div>
+</body>
+</html>
